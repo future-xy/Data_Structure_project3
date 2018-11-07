@@ -21,6 +21,14 @@
   <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FamilyTree.h" />
+    <ClInclude Include="IOCtr.h" />
+    <ClInclude Include="Member.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E9ABE02C-731E-488C-A0EA-D5B4F468CDE2}</ProjectGuid>

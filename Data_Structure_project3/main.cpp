@@ -1,7 +1,14 @@
+#include <iostream>
+#include <string>
+
+#include "IOCtr.h"
 #include "FamilyTree.h"
 #include "Member.h"
-using namespace std;
 
+using std::string;
+using std::cout;
+using std::endl;
+using std::cin;
 
 /*
  * class Member{
@@ -29,7 +36,7 @@ void ShowOption(){
 
     printf("What Happens to you? $ ");
 }
-FamiliyTree *tree;
+FamilyTree *tree;
 // or tree[N] , map<string, *FamilyTree>  ? 
 
 void Initial(){  
@@ -38,7 +45,8 @@ void Initial(){
     tree = new FamilyTree(ancestor);
 }
 
-void InputChild(string name ,bool fromRelavtive){
+void InputChild(string name ,bool fromRelavtive)
+{
     string child_name;int birthyear;
     string child_sex;
     printf("What's your child's name ? :"); cin>>child_name;
