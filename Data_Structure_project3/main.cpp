@@ -22,9 +22,16 @@ using std::map;
  *     vector<Member> child
  * }
  */
+unsigned long long String_HashValue(string s) {
+	unsigned long long PrimeBase = 233, PrimeModular = 19260817,
+		result = 0;
 
+	for (auto c : s)
+		result = (result*PrimeBase + c) % PrimeModular;
+	return result;
+}
 //To save all familytree
-//ap<string, FamilyTree> shelf;
+map<string, FamilyTree> shelf;
 
 void ShowOption(){
     
