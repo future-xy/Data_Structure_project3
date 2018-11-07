@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <map>
 
 #include "IOCtr.h"
 #include "FamilyTree.h"
@@ -9,6 +10,7 @@ using std::string;
 using std::cout;
 using std::endl;
 using std::cin;
+using std::map;
 
 /*
  * class Member{
@@ -20,6 +22,9 @@ using std::cin;
  *     vector<Member> child
  * }
  */
+
+//To save all familytree
+map<string, FamilyTree> shelf;
 
 void ShowOption(){
     
