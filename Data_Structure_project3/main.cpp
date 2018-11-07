@@ -24,7 +24,7 @@ using std::map;
  */
 
 //To save all familytree
-map<string, FamilyTree> shelf;
+//ap<string, FamilyTree> shelf;
 
 void ShowOption(){
     
