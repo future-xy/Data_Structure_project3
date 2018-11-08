@@ -89,7 +89,11 @@ bool save_all()
 	myfileout.close();
 	for (auto item : shelf)
 	{
-		bfs_save(".\\", item.second.getRoot);
+		string path = ".\\" + item.second.getName();
+		CreateDirectory(path.c_str(), NULL);
+		ofstream mytxtout(path + "\\" + item.second.getName + ".txt");
+		mytxtout << item.second.getString();
+		bfs_save(path, item.second.getRoot());
 	}
 }
 void bfs_save(string path, const Member& root)
@@ -103,7 +107,7 @@ void bfs_save(string path, const Member& root)
 	myfileout.open(cur_path + "\\" + root.name() + ".csv");
 	myfileout << root;
 	myfileout.close();
-	const vector<Member&> &child = root.getChild();
+	const vector<Member*> &child = root.getChild();
 	for (auto item : child)
 	{
 		bfs_save(cur_path + "\\", item);
@@ -111,9 +115,28 @@ void bfs_save(string path, const Member& root)
 }
 Member* bfs_get(string path, string name)
 {
-	
+	ifstream myfilein(path + "\\" + name + ".txt");
+	string info = getTxt(myfilein);
+	myfilein.close();
+	myfilein.open(path + "\\" + name + ".csv");
+	Member* root = new Member(info);
+	myfilein >> (*root);
+	myfilein.close();
+	const vector<Member*> &child = root.getChild();
+	for (auto item : child)
+	{
+		Member* temp=bfs_get(cur_path + "\\" + item.name(), item.name());
+		root->child.push(temp);
+	}
+	return root;
 }
 string getTxt(ifstream& ifs)
 {
-
+	char ch;
+	string ans;
+	while (ifs >> ch)
+	{
+		ans.push_back(ch);
+	}
+	return ans;
 }
