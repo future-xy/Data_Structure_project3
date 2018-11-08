@@ -6,10 +6,13 @@
 #include<fileapi.h>
 #include<conio.h>
 #include<string>
-#include<io.h>
+#include<vector>
+
+#include"FamilyTree.h"
 
 
 using std::string;
+using std::vector;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -61,28 +64,17 @@ void preprocessing()
 	string temp;
 	myfilein >> temp;
 	string information;
-	const string pathhead = ".\\";
+	const string path = ".\\";
 	while (myfilein >> information)
 	{
 		if (information.empty() || information == "\n")
 			continue;
-		FamilyTree newTree(information);
-		_finddata_t file_info;
-		string cur_path = pathhead + information;
-		int handle=	_findfirst(cur_path.c_str(), &file_info);
-		if (handle == -1)
-			return;
-		do
-		{
-			string attribute;
-			if (file_info.attrib == _A_SUBDIR)
-				attribute = "dir";
-			else
-				attribute = "file";
-
-		}
+		ifstream mytxtin(path + information + "\\" + information + ".txt");
+		string info = getTxt(mytxtin);
+		FamilyTree newTree(info);
+		newTree.Anc = bfs_get(path + information + "\\" + newTree.forefather(), newTree.forefather());
+		shelf[information] = newTree;
 	}
-
 
 }
 bool save_all()
@@ -95,6 +87,33 @@ bool save_all()
 	ofstream myfileout("Familytree.log");
 	myfileout << information << endl;
 	myfileout.close();
+	for (auto item : shelf)
+	{
+		bfs_save(".\\", item.second.getRoot);
+	}
+}
+void bfs_save(string path, const Member& root)
+{
+	string cur_path = path + root.name();
+	CreateDirectory(cur_path.c_str(), NULL);
+	ofstream myfileout(cur_path + "\\" + root.name() + ".txt");
+	string info = root.getInfo();
+	myfileout << info;
+	myfileout.close();
+	myfileout.open(cur_path + "\\" + root.name() + ".csv");
+	myfileout << root;
+	myfileout.close();
+	const vector<Member&> &child = root.getChild();
+	for (auto item : child)
+	{
+		bfs_save(cur_path + "\\", item);
+	}
+}
+Member* bfs_get(string path, string name)
+{
 	
+}
+string getTxt(ifstream& ifs)
+{
 
 }

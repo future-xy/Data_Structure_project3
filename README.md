@@ -34,7 +34,7 @@
 
    
 ## 新需求： 
-1.FamilyTree要有构造函数支持这样的操作——newfamily("laowangjiapu");        
+1.FamilyTree应当把函数processing（见IOCtr.h）设为友元;Member要把bfs_get()设为友元函数;        
 2.FamilyTree有一个成员(String)记录家族的大事，同时重载<<和>>运算符，要求能够从逗号分隔值文件(*.csv)输入输出;      
 3.Member需要password来记录成员的密码，初始密码默认为生日，以及修改密码等操作。     
 4.Member需要一个String记录生平，操作同(2).       
@@ -42,3 +42,6 @@
 6.member的构造函数能够从（5）的string里面直接恢复数据。  
 7.member还应该有一个变量，记录是家族的第几代。   
 8.每一个member应该具有向屏幕打印自己子树的函数（这里可以写成递归函数，我们用凹入法打印吧……）  
+9.FamilyTree 应该具有访问根节点的接口(返回值应该是const Member类型)   
+10.Member应该具有返回所有子女姓名的vector的函数     
+11.FamilyTree也要一个将家族的基本信息以String类型返回的函数，并且能够从同样的String中恢复信息的构造函数
