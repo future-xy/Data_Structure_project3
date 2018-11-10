@@ -9,7 +9,7 @@
 #include<vector>
 
 #include"FamilyTree.h"
-
+#include"Member.h"
 
 using std::string;
 using std::vector;
@@ -18,11 +18,38 @@ using std::cout;
 using std::endl;
 using std::ifstream;
 using std::ofstream;
+string ui = "　　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　　　。。。　　　　。。。　　　　　\n"
+"　　　　　　　　　　　。。。。　　　　　　　　　　　　　　。。　　　　　　　。。。　　。。。。　　　　　\n"
+"　　　　。。　　　　　　。。。　　　　　　　。　　　　　　。。。　　　　　　。。。　　。。　　　　　　　\n"
+"　　　。。。。。。。。。。。。。。。。。。。。。　　　　　　。。。　　　　　。。。　。。。　　。。。　　\n"
+"　　　。。。　　　　　　　　　　　　　　　。。。。　　　　　。。。　。。。。。。。。。。。。。。。。。　\n"
+"　　。。。　　　　　　　　　　　　　　　。。。　　　　　　　　　　　　　　　　。。　。。。　　。　　　　\n"
+"　　。。。　　　　　　　　　　　　。。。。。　　　　　　　　　　　　　。。　　。。　。。。　。。。　　　\n"
+"　　　　　。。。。。。。。。。。。。。。。　　　　　　　　　　　　　　。。。　。。　。。。　。。。。　　\n"
+"　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　。。。　　　。。。。。　。。。。。。　　　　\n"
+"　　　　　　　　。。。。。　　　　　。。。　　　　　。。。。。。。　　　。。。。。　。。。。。　　　　　\n"
+"　　　　　　　。。。　。。。　　　。。。。。　　　　　　　　。。。　　　　　　。。　。。。。　　。。。　\n"
+"　　　　　。。。　　　。。。。。。。。　　　　　　　　　　　。。。。。。。。。。。。。。。。。。。。。。\n"
+"　　　。。。。　　　。。。。。。。。　　　　　　　　　　　　。。。　　　　　　　　　　　　　　　　　　　\n"
+"　。。。。　　　　。。。　。。。。。　　　　　　　　　　　　。。。　　　。。　　　　　　　　。。　　　　\n"
+"　　　　　　　。。。　　。。。。。。。　　　　　　　　　　　。。。　　　。。。。。。。。。。。。。　　　\n"
+"　　　　　　。。。　　。。。。。　。。　　　　　　　　　　　。。。　　　。。。　　　　　　。。。　　　　\n"
+"　　　　。。。　　　。。。。。。　。。。　　　　　　　　　　。。。　。。。。。　　　　　　。。。　　　　\n"
+"　　。。。　　　　。。。。　。。。　。。。　　　　　　　　　。。。。。。。。。　　　　　　。。。　　　　\n"
+"　　　　　　　　。。。　　　。。。　　。。。。　　　　　　　。。。。。　。。。。。。。。。。。。　　　　\n"
+"　　　　　　。。。　　　　。。。。　　　。。。。。　　　　　。。。。　　。。。　　　　　　。。。　　　　\n"
+"　　　　。。。。　　　　　。。。　　　　　。。　　　　　　　。。。　　　。。。　　　　　　。。。　　　　\n"
+"　　。。。。　　　。。。。。。。　　　　　　　　　　　　　　。。。　　　。。。。。。。。。。。。　　　　\n"
+"　。。　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　。。。　　　　　　。。。　　　　\n"
+"　　　　　　　　　　　　。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 \n";
+
 
 enum Status
 {
 	patriarch, clansman, tourist
 };
+string hometown = "UNKNOW";
+Status authority = tourist;
 
 Status sign_in()
 {
@@ -47,14 +74,37 @@ Status sign_in()
 		}
 	}
 	pw[i] = '\0';
-	string password = pw;
+	unsigned long long password = String_HashValue(pw);
 	//We will judge the status by looking in the map;
-	if (true)
-		return patriarch;
-	else if (true)
-		return clansman;
-	else
-		return tourist;
+	for (auto item : shelf)
+	{
+		Status temp = item.second.Log_in(username, password);
+
+		switch (temp)
+		{
+		case patriarch:
+			authority = patriarch;
+			hometown = item.first;
+			break;
+		case clansman:
+			authority = clansman;
+			hometown = item.first;
+			break;
+		case tourist:
+			break;
+		default:
+			break;
+		}
+	}
+
+}
+unsigned long long String_HashValue(string s) {
+	unsigned long long PrimeBase = 233, PrimeModular = 19260817,
+		result = 0;
+
+	for (auto c : s)
+		result = (result*PrimeBase + c) % PrimeModular;
+	return result;
 }
 void preprocessing()
 {
@@ -72,10 +122,9 @@ void preprocessing()
 		ifstream mytxtin(path + information + "\\" + information + ".txt");
 		string info = getTxt(mytxtin);
 		FamilyTree newTree(info);
-		newTree.Anc = bfs_get(path + information + "\\" + newTree.forefather(), newTree.forefather());
+		newTree.Anc = dfs_get(path + information + "\\" + newTree.forefather(), newTree.forefather());
 		shelf[information] = newTree;
 	}
-
 }
 bool save_all()
 {
@@ -89,31 +138,34 @@ bool save_all()
 	myfileout.close();
 	for (auto item : shelf)
 	{
-		string path = ".\\" + item.second.getName();
+		const Member* forefather = item.second.Anc;
+		string path = ".\\" + forefather->getName();
 		CreateDirectory(path.c_str(), NULL);
-		ofstream mytxtout(path + "\\" + item.second.getName + ".txt");
+		ofstream mytxtout(path + "\\" + forefather->getName() + ".txt");
 		mytxtout << item.second.getString();
-		bfs_save(path, item.second.getRoot());
+		mytxtout.close();
+		dfs_save(path, forefather);
+
 	}
 }
-void bfs_save(string path, const Member& root)
+void dfs_save(string path, const Member* root)
 {
-	string cur_path = path + root.name();
+	string cur_path = path + root->getName();
 	CreateDirectory(cur_path.c_str(), NULL);
-	ofstream myfileout(cur_path + "\\" + root.name() + ".txt");
-	string info = root.getInfo();
+	ofstream myfileout(cur_path + "\\" + root->getName() + ".txt");
+	string info = root->getInfo();
 	myfileout << info;
 	myfileout.close();
-	myfileout.open(cur_path + "\\" + root.name() + ".csv");
+	myfileout.open(cur_path + "\\" + root->getName() + ".csv");
 	myfileout << root;
 	myfileout.close();
-	const vector<Member*> &child = root.getChild();
+	const vector<Member*> child =root->children;
 	for (auto item : child)
 	{
-		bfs_save(cur_path + "\\", item);
+		dfs_save(cur_path + "\\", item);
 	}
 }
-Member* bfs_get(string path, string name)
+Member* dfs_get(string path, string name)
 {
 	ifstream myfilein(path + "\\" + name + ".txt");
 	string info = getTxt(myfilein);
@@ -122,11 +174,11 @@ Member* bfs_get(string path, string name)
 	Member* root = new Member(info);
 	myfilein >> (*root);
 	myfilein.close();
-	const vector<Member*> &child = root.getChild();
+	vector<string> child = root->getChildname();
 	for (auto item : child)
 	{
-		Member* temp=bfs_get(cur_path + "\\" + item.name(), item.name());
-		root->child.push(temp);
+		Member* temp=dfs_get(path + "\\" + item, item);
+		root->children.push_back(temp);
 	}
 	return root;
 }

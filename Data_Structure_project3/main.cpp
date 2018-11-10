@@ -10,26 +10,11 @@ using std::string;
 using std::cout;
 using std::endl;
 using std::cin;
+using std::cerr;
 using std::map;
 
-/*
- * class Member{
- *     enum MarrageState = {MARRIED , UNMARRIED , DIVORCED };
- *     string name , couple;
- *     int birth, death;
- *     bool sex;
- *     
- *     vector<Member> child
- * }
- */
-unsigned long long String_HashValue(string s) {
-	unsigned long long PrimeBase = 233, PrimeModular = 19260817,
-		result = 0;
 
-	for (auto c : s)
-		result = (result*PrimeBase + c) % PrimeModular;
-	return result;
-}
+
 //To save all familytree
 map<string, FamilyTree> shelf;
 
@@ -48,13 +33,27 @@ void ShowOption(){
 
     printf("What Happens to you? $ ");
 }
-FamilyTree *tree;
-// or tree[N] , map<string, *FamilyTree>  ? 
 
-void Initial(){  
-    // if FuYao want to recover the total family tree from txt , code here.
+void Initial()
+{  
+/*    // if FuYao want to recover the total family tree from txt , code here.
     Member ancestor("GaoJirong", 1949, -1, Member::MARRIED, 0);
     tree = new FamilyTree(ancestor);
+*/
+	preprocessing();
+	cout << ui;
+	cout << "是否登陆\n"
+		<< "0.否\n"
+		<< "1.是\n";
+	int order;
+	cin >> order;
+	if (order)
+	{
+		if (sign_in() == tourist)
+		{
+			cout << "查无此人\n";
+		}
+	}
 }
 
 void InputChild(string name ,bool fromRelavtive)
@@ -73,10 +72,29 @@ void InputChild(string name ,bool fromRelavtive)
         tree->RemoveChild(relative_name, bab);
     }
 }
+void model_1();
+void model_2();
+void model_3();
 int main(){
 
     Initial();
-    printf("+----------------------------+\n");
+	int ok = 1;
+	while(ok)
+	switch (authority)
+	{
+	case patriarch:
+		
+		break;
+	case clansman:
+		break;
+	case tourist:
+		model_3();
+		break;
+	default:
+
+		break;
+	}
+    /*printf("+----------------------------+\n");
     printf("|  The Family Tree of Gao    |\n");
     printf("+----------------------------+\n");
     
@@ -128,6 +146,71 @@ int main(){
             string info; cin>>info;
             tree->appendIntroduction(name, info);
         }  
-    }
+    }*/
+	if (save_all())
+		cout << "Bye!\n";
+	else
+		cerr << "Error!\n";
     return 0;
+}
+void model_1()
+{
+
+}
+void model_2()
+{
+	int ok = 1;
+}
+void model_3()
+{
+	int ok = 1;
+	while (ok)
+	{
+		cout << "当前保存的家谱有:\n";
+		for (auto item : shelf)
+		{
+			cout << "《" << item.first << "》" << endl;
+		}
+		cout << "请选择操作:\n"
+			<< "0.退出\n"
+			<< "1.查找姓名\n"
+			<< "2.查看家族基本信息\n";
+		int order = 0;
+		cin >> order;
+		string name;
+		Member* people = nullptr;
+		switch (order)
+		{
+		case 0:
+			ok = 0;
+		case 1:
+			cin >> name;
+			for (auto item : shelf)
+			{
+				people = item.second.Search(name);
+				if (people != nullptr)
+				{
+
+				}
+				else
+				{
+					cout << "查无此人\n";
+				}
+				system("pause");
+			}
+			break;
+		case 2:
+			cin >> name;
+			if (shelf.count(name))
+				cout << shelf[name].getMessage();
+			else
+				cout << "此家谱不存在\n";
+			system("pause");
+			break;
+		default:
+			break;
+		}
+		system("cls");
+	}
+
 }

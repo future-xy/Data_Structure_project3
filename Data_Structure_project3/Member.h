@@ -1,8 +1,11 @@
 #pragma once
 #include<vector>
-#include<iostream>
+#include<string>
+
 #define Max_size 10
-using namespace std;
+using std::string;
+using std::vector;
+
 class Spouse{
 	private:
 		bool alive;
@@ -49,6 +52,9 @@ class Member{
 		Member(string);
 		~Member();
 		
+		friend Member* dfs_get(string path, string name);
+		friend void dfs_save(string path, const Member* root);
+
 		bool getAlive() const;
 		void setAlive(bool);
 		string getName() const;//the whole name
@@ -69,6 +75,5 @@ class Member{
 		unsigned long long getPassword() const;
 		string Getmessage();//all message
 		void changeName(string);//change lastname
-		friend vector<Member*>& getChild();
-		friend vector<string>& getChildname(); //return names of children
+		vector<string> getChildname(); //return names of children
 };
