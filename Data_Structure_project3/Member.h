@@ -79,6 +79,6 @@ class Member{
 		string Getmessage();//all message
 		void changeName(string);//change lastname
 		vector<string> getChildname(); //return names of children
-		friend ofstream& operator<<(ofstream&,const Member&);
+		friend ofstream& operator<<(ofstream&,Member&);
 		friend ifstream& operator>>(ifstream&,Member&);
 };

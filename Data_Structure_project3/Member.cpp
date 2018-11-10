@@ -101,7 +101,7 @@ void Member::setInfo(string _info){
 		_info.erase(0,pos+1);
 	}
 }
-ofstream& operator<<(ofstream& out,const Member& other){
+ofstream& operator<<(ofstream& out, Member& other) {
 	string str = other.getInfo();
 	out << str;
 	return out;

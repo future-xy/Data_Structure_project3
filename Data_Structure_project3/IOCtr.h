@@ -46,15 +46,15 @@ string ui = "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡£¡£¡£¡£¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
 
 enum Status
 {
-	patriarch, clansman, tourist
+	patriarch, clansman, tourist, wrong_pw
 };
 string hometown = "UNKNOW";
 Status authority = tourist;
+string username;
 
 Status sign_in()
 {
 	cout << "ÇëÊäÈëÕËºÅ£º";
-	string username;
 	cin >> username;
 	cout<< "ÇëÊäÈëÃÜÂë£º";
 	int i = 0;

@@ -155,11 +155,91 @@ int main(){
 }
 void model_1()
 {
+	int ok = 1;
+	const FamilyTree& cur_tree = shelf[hometown];
 
+	while (ok)
+	{
+		cout << cur_tree.Patriarch() << "族长，您好！\n";
+		cout << "请选择操作:\n"
+			<< "0.退出\n"
+			<< "1.\n"
+			<< "2.\n"
+			<< "3.\n"
+			<< "4.\n"
+			<< "5.\n";
+		int order;
+		cin >> order;
+		switch (order)
+		{
+		case 0:
+			ok = 0;
+			break;
+		case 1:
+
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		case 4:
+
+			break;
+		case 5:
+
+			break;
+		default:
+			break;
+		}
+		system("pause");
+		system("cls");
+	}
 }
 void model_2()
 {
 	int ok = 1;
+	const FamilyTree& cur_tree = shelf[hometown];
+	while (ok)
+	{
+		cout << username << "，您好！\n";
+		cout << "请选择操作:\n"
+			<< "0.退出\n"
+			<< "1.\n"
+			<< "2.\n"
+			<< "3.\n"
+			<< "4.\n"
+			<< "5.\n";
+		int order;
+		cin >> order;
+		switch (order)
+		{
+		case 0:
+			ok = 0;
+			break;
+		case 1:
+
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		case 4:
+
+			break;
+		case 5:
+
+			break;
+		default:
+			break;
+		}
+		system("pause");
+		system("cls");
+	}
+
 }
 void model_3()
 {
@@ -196,7 +276,6 @@ void model_3()
 				{
 					cout << "查无此人\n";
 				}
-				system("pause");
 			}
 			break;
 		case 2:
@@ -205,11 +284,11 @@ void model_3()
 				cout << shelf[name].getMessage();
 			else
 				cout << "此家谱不存在\n";
-			system("pause");
 			break;
 		default:
 			break;
 		}
+		system("pause");
 		system("cls");
 	}
 
