@@ -29,9 +29,6 @@
     <ClInclude Include="FamilyTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Member.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="IOCtr.h">
       <Filter>头文件</Filter>
     </ClInclude>
