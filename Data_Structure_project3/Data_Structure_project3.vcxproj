@@ -28,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="FamilyTree.h" />
     <ClInclude Include="IOCtr.h" />
+    <ClInclude Include="Member.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

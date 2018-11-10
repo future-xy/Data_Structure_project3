@@ -2,10 +2,7 @@
 #include<sstream>
 
 using std::stringstream;
-Spouse::Spouse(){}
-Spouse::~Spouse(){}
-Member::Member(){}
-Member::~Member(){}
+
 Member::Member(string inform){
 	stringstream ss;
 	string str;
@@ -104,13 +101,15 @@ void Member::setInfo(string _info){
 		_info.erase(0,pos+1);
 	}
 }
-ostream& operator<<(ostream& out,const Member& other){
-	out << other.getInfo();
+ofstream& operator<<(ofstream& out,const Member& other){
+	string str = other.getInfo();
+	out << str;
 	return out;
 }
-istream& operator>>(istream& in,Member& other){
-	string str,temp;
-	while(in>>temp)
+ifstream& operator>>(ifstream& in,Member& other){
+	string str;
+	
+	while(in>>str)
 	other.info.push_back(str);
 	return in;
 }
