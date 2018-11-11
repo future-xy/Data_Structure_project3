@@ -4,20 +4,25 @@
 #include "IOCtr.h"
 #include <string>
 #include <tuple>
+using std::tuple;
+using std::string;
+using std::vector;
 
-typedef tuple<int, string, Member*, Spouse*> Line;
+typedef tuple<int, Member*, Member*, Spouse> Line;
 
 class FamilyTree{
 	public:
-		FamilyTree(Member* anc);
+		FamilyTree(Member* );
 		~FamilyTree();
         
 		string GetAnc();
+
 		void SetPatriarch(string);
+		
 		void GiveBirth(string MyName, Member MyKid);
 		void RemoveChild(string MyName, string MyKid);
 		
-		void GetMarried(string MyName, string MyWife, string date);
+		void GetMarried(string MyName, string MyWife, string Birth_date, string Death_date);
 		void Divorce(string MaName);
 		
 		void Die(string MyName);
@@ -26,16 +31,20 @@ class FamilyTree{
 
 		Member* Search(string MyName);
 
+		void Repair();
+		
+		void Save_Tree(int, string&);
+
+		
 		friend void preprocessing();
 		friend bool save_all();
-
-
-		void Repair();
 	private:
 		Member* Anc; // root
-		int count;
+		int Count_family;
+		int Count_family_alive;
 		void Dfs_Tree(string MyName, Member* p, Member* &Mem);
 		void Delete(Member*);
+		void Counting(Member*);
 		vector <Line> History; 
 
 		Member* Patriarch; //zuzhang
