@@ -14,7 +14,8 @@ class FamilyTree{
 	public:
 		FamilyTree(Member* );
 		~FamilyTree();
-        FamilyTree(Member);
+   		FamilyTree(bool, Status, string, string, bool, string, bool);
+		FamilyTree(string);
 		string GetAnc();
 
 		void SetPatriarch(string);
@@ -31,10 +32,9 @@ class FamilyTree{
 
 		Member* Search(string MyName);
 	
-        void PreRepair(); 
+        	void PreRepair(); 
 		void Repair();
-		
-		void Save_Tree(int, string&);
+		string Tree_to_String();
 
 		
 		friend void preprocessing();
@@ -46,6 +46,10 @@ class FamilyTree{
 		void Dfs_Tree(string MyName, Member* p, Member* &Mem);
 		void Delete(Member*);
 		void Counting(Member*);
+		void Save_Tree(int, Member&);
+		void Read_Tree(Member*&);
+		string TheTree;
+	
 		vector <Line> History; 
 
 		Member* Patriarch; //zuzhang
