@@ -14,7 +14,7 @@ class FamilyTree{
 	public:
 		FamilyTree(Member* );
 		~FamilyTree();
-        
+                FamilyTree(Member);
 		string GetAnc();
 
 		void SetPatriarch(string);
