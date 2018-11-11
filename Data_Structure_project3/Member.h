@@ -43,7 +43,7 @@ class Member{
 		string lastname;
 		bool gender;//true male false female
 		string birth_date;
-		string death_date;
+		string weddingdate;
 		vector<string> info;
 		Spouse spouse;
 		Member* father;
@@ -58,7 +58,7 @@ class Member{
 		Member() = default;
 		Member(string);
 		Member(bool a,Status b,string c,string d,bool e,string f,string g,unsigned long long h,bool i):
-		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),death_date(g),password(h),state(i){}
+		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),weddingdate(g),password(h),state(i){}
 		~Member() = default;
 		
 		bool getAlive() const;
@@ -69,8 +69,8 @@ class Member{
 		void setGender(bool);
 		string getBirth() const;
 		void setBirth(string);
-		string getDeath() const;
-		void setDeath(string);
+		string getWedding() const;
+		void setWedding(string);
 		string getInfo() const;//shengping
 		Spouse getSpouse() const;
 		void setInfo(string);
