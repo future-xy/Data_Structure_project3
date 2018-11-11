@@ -126,7 +126,8 @@ void preprocessing()
 		if (information.empty() || information == "\n")
 			continue;
 		ifstream mytxtin(path + information + "\\" + information + ".txt");
-		string info = getTxt(mytxtin);
+		if(mytxtin.is_open())
+			string info = getTxt(mytxtin);
 		FamilyTree newTree(info);
 		mytxtin.close();
 		string del_path = path + information + "\\" + information + ".txt";
@@ -180,13 +181,15 @@ void dfs_save(string path, const Member* root)
 Member* dfs_get(string path, string name)
 {
 	ifstream myfilein(path + "\\" + name + ".txt");
-	string info = getTxt(myfilein);
+	if(myfilein.is_open())
+		string info = getTxt(myfilein);
 	myfilein.close();
 	string del_path = path + "\\" + name + ".txt";
 	DeleteFile(del_path.c_str());
-	myfilein.open(path + "\\" + name + ".csv");
 	Member* root = new Member(info);
-	myfilein >> (*root);
+	myfilein.open(path + "\\" + name + ".csv");
+	if (myfilein.is_open())
+		myfilein >> (*root);
 	myfilein.close();
 	del_path = path + "\\" + name + ".csv";
 	DeleteFile(del_path.c_str());
@@ -201,6 +204,8 @@ Member* dfs_get(string path, string name)
 }
 string getTxt(ifstream& ifs)
 {
+	if (ifs.bad())
+		return "";
 	char ch;
 	string ans;
 	while (ifs >> ch)
