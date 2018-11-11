@@ -4,11 +4,15 @@
 #include <vector>
 #include <queue>
 #include <tuple>
+#include <iostream>
 using std::string;
 using std::vector;
 using std::tuple;
 using std::queue;
 using std::get;
+using std::cin;
+using std::cout;
+using std::endl;
 
 
 //............Public.function...........................
@@ -41,12 +45,12 @@ void FamilyTree::SetPatriarch(string MyName)
 	}
 }
 
-void FamilyTree::GiveBirth(string MyName, Member MyKid)//?
+void FamilyTree::GiveBirth(string MyName, Member MyKid)
 {
 	Member* p = new Member(MyKid);
 	Spouse s;
 	Member* Mem = nullptr;
-    Dfs_Tree(MyName, Anc, Mem);
+        Dfs_Tree(MyName, Anc, Mem);
 	if (Mem != nullptr)
 	{
 		Line tup1(0, Mem, p, s);
@@ -77,7 +81,7 @@ void FamilyTree::RemoveChild(string MyName, string MyKid)
 	}
 }
 
-void FamilyTree::GetMarried(string MyName, string MyWife, string Birth_date, string Death_date)
+void FamilyTree::GetMarried(string MyName, string MyWife, string Birth_date, string WeddingDay)
 {
 	Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
@@ -90,12 +94,11 @@ void FamilyTree::GetMarried(string MyName, string MyWife, string Birth_date, str
 			ss.setGender(false);
 		else ss.setGender(true);
 		ss.setBirth(Birth_date);
-		ss.setDeath(Death_date);
+		//ss.setDeath(Death_date);
+		ss.setWedding(WeddingDay);
 		Line tup1(2, Mem, nullptr, ss);
 		History.push_back(tup1);
 	}
-
-
 }
 void FamilyTree::Divorce(string MyName)
 {
@@ -143,13 +146,35 @@ Member* FamilyTree::Search(string MyName)
 {
 	Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
-	if (Mem != nullptr)
-	{
-		return Mem;
-	}
-	return nullptr;
+        return Mem;
 }
-
+void FamilyTree::PreRepair()
+{
+	for (int i = 0; i < History.size(); ++i)
+	{
+		Line hist = History[i];
+		cout << "事件 " << i << "：" << endl;
+		int oper = get<0>(hist);
+		switch (oper) {
+		case 0:
+			cout << "新生儿！来自" << get<1>(hist) << "、" << get<3>(hist).getName() << "，取名：" << get<2>(hist)->getName() << endl;
+			break;
+		case 1:
+			cout << "请求逐出宗族连带子孙！来自" << get<1>(hist) "、" << get<3>(hist).getName() << "，姓名：" << get<2>(hist)->getName() << endl;
+			break;
+		case 2:
+			cout << "喜结连理！祝福" << get<1>(hist) "、" << get<3>(hist).getName() << "夫妇！" << endl;
+			break;
+		case 3:
+			cout << "此事亦难全。" << get<1>(hist) "、" << get<3>(hist).getName() << "夫妇决定离婚。" << endl;
+			break;
+		case 4:
+			cout << "叹息。" << get<1>(hist) << "，昔人已逝，节哀。" << endl; 
+			break;
+		}
+		
+	}
+}
 void FamilyTree::Repair()
 {
 	while (!History.empty())
@@ -201,10 +226,7 @@ void FamilyTree::Dfs_Tree(string MyName, Member* p, Member* &Mem)
 			vector <Member*>::iterator it = Childs.begin();
 			while (it != Childs.end())
 			{
-				if ((*it)->getName() != MyName)
-				{
-					Dfs_Tree(MyName, *it, Mem);
-				}
+			    Dfs_Tree(MyName, *it, Mem);
 				it++;
 			}
 		}
