@@ -250,6 +250,7 @@ void model_3()
 		string name;
 		Member* people = nullptr;
 		string temp_family, anc_family_name, anc_first_name, birthday;
+		FamilyTree* new_tree = nullptr;
 		switch (order)
 		{
 		case 0:
@@ -285,7 +286,7 @@ void model_3()
 			cin >> anc_first_name;
 			cout << "ÇëÊäÈëÉúÈÕ:";
 			cin >> birthday;
-			FamilyTree* new_tree = new FamilyTree(temp_family, anc_family_name, anc_first_name, birthday);
+			new_tree = new FamilyTree(true, patriarch, anc_family_name, anc_first_name, true, birthday, false);
 			shelf[temp_family] = new_tree;
 
 		default:

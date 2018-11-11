@@ -155,7 +155,7 @@ bool save_all()
 		string path = ".\\" + forefather->getName();
 		CreateDirectory(path.c_str(), NULL);
 		ofstream mytxtout(path + "\\" + forefather->getName() + ".txt");
-		mytxtout << item.second->getString();
+		mytxtout << item.second->getMessage();
 		mytxtout.close();
 		dfs_save(path, forefather);
 

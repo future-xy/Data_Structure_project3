@@ -59,7 +59,7 @@ class Member{
 		Member() = default;
 		Member(string);
 		Member(bool a,Status b,string c,string d,bool e,string f,bool i):
-		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),,state(i){
+		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),state(i){
 			password = String_HashValue(birth_date);
 		}
 		~Member() = default;

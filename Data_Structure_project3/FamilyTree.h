@@ -14,7 +14,7 @@ class FamilyTree{
 	public:
 		FamilyTree(Member* );
 		~FamilyTree();
-                FamilyTree(Member);
+        FamilyTree(Member);
 		string GetAnc();
 
 		void SetPatriarch(string);
@@ -31,7 +31,7 @@ class FamilyTree{
 
 		Member* Search(string MyName);
 	
-                void PreRepair(); 
+        void PreRepair(); 
 		void Repair();
 		
 		void Save_Tree(int, string&);
