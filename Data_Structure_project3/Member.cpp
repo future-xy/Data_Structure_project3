@@ -8,7 +8,7 @@ Member::Member(string inform){
 	string str;
 	ss << inform;
 	ss >> str;
-	if(str=="Éú")	alive = true;
+	if(str=="ç”Ÿ")	alive = true;
 	else	alive = false;
 	ss >> str;
 	lastname = str;
@@ -17,12 +17,12 @@ Member::Member(string inform){
 	ss >> str;
 	birth_date = str;
 	ss >> str;
-	death_date = str;
+	weddingdate = str;
 	unsigned long long pre;
 	ss >> pre;
 	password = pre;
 	ss >> str;
-	if(str=="ÄĞ") gender = true;
+	if(str=="ç”·") gender = true;
 	else gender = false;
 	unsigned int temp;
 	ss >> temp;
@@ -31,10 +31,10 @@ Member::Member(string inform){
 		child_name.push_back(str);
 	}
 	ss >> str;
-	if(str=="ÒÑ»é"){
+	if(str=="å·²å©š"){
 		state = true;
 		ss >> str;
-		if(str=="Éú") spouse.setAlive(true);
+		if(str=="ç”Ÿ") spouse.setAlive(true);
 		else spouse.setAlive(false);
 		ss >> str;
 		spouse.setName(str);
@@ -43,7 +43,7 @@ Member::Member(string inform){
 		ss >> str;
 		spouse.setDeath(str);
 		ss >> str;
-		if(str=="ÄĞ") spouse.setGender(true);
+		if(str=="ç”·") spouse.setGender(true);
 		else spouse.setGender(false);
 	} else state = false;
 }
@@ -80,11 +80,11 @@ string Member::getBirth() const{
 void Member::setBirth(string birth){
 	birth_date = birth;
 }
-string Member::getDeath() const{
-	return death_date;
+string Member::getWedding() const{
+	return weddingdate;
 }
-void Member::setDeath(string death){
-	death_date = death;
+void Member::setWedding(string wedding){
+	weddingdate = wedding;
 }
 string Member::getInfo() const{
 	string str;
@@ -127,10 +127,10 @@ unsigned long long Member::getPassword() const{
 }
 string Member::Getmessage(){
 	string str;
-	if(alive)	str+="Éú\n";
-	else	str+="ËÀ\n";
+	if(alive)	str+="ç”Ÿ\n";
+	else	str+="æ­»\n";
 	str += (lastname+' '+firstname+'\n');
-	str+=(birth_date+'\n'+death_date+'\n');
+	str+=(birth_date+'\n'+weddingdate+'\n');
 	stringstream ss;
 	string st;
 	ss << password;
@@ -138,8 +138,8 @@ string Member::Getmessage(){
 	str += st;
 	str += '\n';
 	
-	if(gender)    str+="ÄĞ\nº¢×ÓÊı:";
-	else str+="Å®\nº¢×ÓÊı:";
+	if(gender)    str+="ç”·\nå­©å­æ•°:";
+	else str+="å¥³\nå­©å­æ•°:";
 	int num = children.size();
 	ss << num;
 	ss >> st;
@@ -149,13 +149,13 @@ string Member::Getmessage(){
 	str += (child_name[i]+'\n');
 	
 	if(state){
-		str+="ÒÑ»é\nÅäÅ¼:\n";
-		if(spouse.getAlive())	str+="Éú\n";
-		else	str+="ËÀ\n";
+		str+="å·²å©š\né…å¶:\n";
+		if(spouse.getAlive())	str+="ç”Ÿ\n";
+		else	str+="æ­»\n";
 		str += (spouse.getName()+'\n');
 		str += (spouse.getBirth()+'\n'+spouse.getDeath()+'\n');
 		str += spouse.getGender();
-	} else str += "µ¥Éí\n";
+	} else str += "å•èº«\n";
 	return str;
 }
 bool Spouse::getAlive() const{
