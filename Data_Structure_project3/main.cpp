@@ -16,23 +16,9 @@ using std::map;
 
 
 void Initial()
-{  
+{
 	preprocessing();
 	cout << ui;
-	if (shelf.empty())
-	{
-		cout << "请新建一个家谱:\n";
-		cout << "请输入家族:";
-		string temp_family;
-		cin >> temp_family;
-		cout << "请输入祖先:";
-		string anc_name;
-		cin >> anc_name;
-
-	}
-	cout << "是否登陆\n"
-		<< "0.否\n"
-		<< "1.是\n";
 	int order;
 	cin >> order;
 	if (order)
@@ -46,36 +32,36 @@ void Initial()
 void model_1();
 void model_2();
 void model_3();
-int main(){
+int main() {
 
-    Initial();
+	Initial();
 	int ok = 1;
-	while(ok)
-	switch (authority)
-	{
-	case patriarch:
-		model_1();
-		break;
-	case clansman:
-		model_2();
-		break;
-	case tourist:
-		model_3();
-		break;
-	default:
+	while (ok)
+		switch (authority)
+		{
+		case patriarch:
+			model_1();
+			break;
+		case clansman:
+			model_2();
+			break;
+		case tourist:
+			model_3();
+			break;
+		default:
 
-		break;
-	}
+			break;
+		}
 	if (save_all())
 		cout << "Bye!\n";
 	else
 		cerr << "Error!\n";
-    return 0;
+	return 0;
 }
 void model_1()
 {
 	int ok = 1;
-	const FamilyTree& cur_tree = shelf[hometown];
+	const FamilyTree* cur_tree = shelf[hometown];
 
 	while (ok)
 	{
@@ -104,12 +90,12 @@ void model_1()
 			cin >> birthday;
 			cout << "";
 			cin >> marriage_date;
-			shelf[hometown].GetMarried(username, name, birthday, marriage_date);
+			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
 			break;
 		case 2:
 			cout << "好聚好散~\n";
-			shelf[hometown].Divorce(username);
+			shelf[hometown]->Divorce(username);
 			break;
 		case 3:
 
@@ -117,18 +103,18 @@ void model_1()
 		case 4:
 			cout << "请输入孩子姓名:\n";
 			cin >> name;
-			shelf[hometown].RemoveChild(username,name);
+			shelf[hometown]->RemoveChild(username, name);
 
 			break;
 		case 5:
 			cout << "节哀顺变\n";
-			shelf[hometown].Die(username);
+			shelf[hometown]->Die(username);
 			break;
 		case 6:
 			cin >> name;
 			for (auto item : shelf)
 			{
-				people = item.second.Search(name);
+				people = item.second->Search(name);
 				if (people != nullptr)
 				{
 					cout << people->Getmessage();
@@ -142,7 +128,7 @@ void model_1()
 		case 7:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name].getMessage();
+				cout << shelf[name]->getMessage();
 			else
 				cout << "此家谱不存在\n";
 			break;
@@ -153,7 +139,7 @@ void model_1()
 		case 9:
 			cout << "请输入下任族长姓名:";
 			cin >> name;
-			shelf[hometown].SetPatriarch(name);
+			shelf[hometown]->SetPatriarch(name);
 			break;
 		default:
 			break;
@@ -165,7 +151,7 @@ void model_1()
 void model_2()
 {
 	int ok = 1;
-	const FamilyTree& cur_tree = shelf[hometown];
+	const FamilyTree* cur_tree = shelf[hometown];
 	while (ok)
 	{
 		cout << username << "，您好！\n";
@@ -194,12 +180,12 @@ void model_2()
 			cin >> birthday;
 			cout << "";
 			cin >> marriage_date;
-			shelf[hometown].GetMarried(username, name, birthday, marriage_date);
+			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
 			break;
 		case 2:
 			cout << "好聚好散~\n";
-			shelf[hometown].Divorce(username);
+			shelf[hometown]->Divorce(username);
 			break;
 		case 3:
 
@@ -207,18 +193,18 @@ void model_2()
 		case 4:
 			cout << "请输入孩子姓名:\n";
 			cin >> name;
-			shelf[hometown].RemoveChild(username,name);
+			shelf[hometown]->RemoveChild(username, name);
 
 			break;
 		case 5:
 			cout << "节哀顺变\n";
-			shelf[hometown].Die(username);
+			shelf[hometown]->Die(username);
 			break;
 		case 6:
 			cin >> name;
 			for (auto item : shelf)
 			{
-				people = item.second.Search(name);
+				people = item.second->Search(name);
 				if (people != nullptr)
 				{
 					cout << people->Getmessage();
@@ -232,7 +218,7 @@ void model_2()
 		case 7:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name].getMessage();
+				cout << shelf[name]->getMessage();
 			else
 				cout << "此家谱不存在\n";
 			break;
@@ -257,11 +243,13 @@ void model_3()
 		cout << "请选择操作:\n"
 			<< "0.退出\n"
 			<< "1.查找姓名\n"
-			<< "2.查看家族基本信息\n";
+			<< "2.查看家族基本信息\n"
+			<< "3.建立家谱\n";
 		int order = 0;
 		cin >> order;
 		string name;
 		Member* people = nullptr;
+		string temp_family, anc_family_name, anc_first_name, birthday;
 		switch (order)
 		{
 		case 0:
@@ -270,7 +258,7 @@ void model_3()
 			cin >> name;
 			for (auto item : shelf)
 			{
-				people = item.second.Search(name);
+				people = item.second->Search(name);
 				if (people != nullptr)
 				{
 
@@ -284,10 +272,22 @@ void model_3()
 		case 2:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name].getMessage();
+				cout << shelf[name]->getMessage();
 			else
 				cout << "此家谱不存在\n";
 			break;
+		case 3:
+			cout << "请输入家族:";
+			cin >> temp_family;
+			cout << "请输入祖先姓氏:";
+			cin >> anc_family_name;
+			cout << "请输入祖先名字:";
+			cin >> anc_first_name;
+			cout << "请输入生日:";
+			cin >> birthday;
+			FamilyTree* new_tree = new FamilyTree(temp_family, anc_family_name, anc_first_name, birthday);
+			shelf[temp_family] = new_tree;
+
 		default:
 			break;
 		}

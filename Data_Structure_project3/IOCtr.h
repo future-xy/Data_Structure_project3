@@ -22,7 +22,7 @@ using std::ifstream;
 using std::ofstream;
 
 //To save all familytree
-map<string, FamilyTree> shelf;
+map<string, FamilyTree*> shelf;
 
 string ui = "　　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　　　。。。　　　　。。。　　　　　\n"
 "　　　　　　　　　　　。。。。　　　　　　　　　　　　　　。。　　　　　　　。。。　　。。。。　　　　　\n"
@@ -84,7 +84,7 @@ Status sign_in()
 	//We will judge the status by looking in the map;
 	for (auto item : shelf)
 	{
-		Status temp = item.second.Log_in(username, password);
+		Status temp = item.second->Log_in(username, password);
 
 		switch (temp)
 		{
@@ -128,12 +128,12 @@ void preprocessing()
 		ifstream mytxtin(path + information + "\\" + information + ".txt");
 		if(mytxtin.is_open())
 			string info = getTxt(mytxtin);
-		FamilyTree newTree(info);
+		FamilyTree* tree_ptr= new FamilyTree(info);
 		mytxtin.close();
 		string del_path = path + information + "\\" + information + ".txt";
 		DeleteFile(del_path.c_str());
-		newTree.Anc = dfs_get(path + information + "\\" + newTree.GetAnc(), newTree.GetAnc());
-		shelf[information] = newTree;
+		tree_ptr->Anc = dfs_get(path + information + "\\" + tree_ptr->GetAnc(), tree_ptr->GetAnc());
+		shelf[information] = tree_ptr;
 	}
 	myfilein.close();
 	DeleteFile("Familytree.log");
@@ -151,11 +151,11 @@ bool save_all()
 	myfileout.close();
 	for (auto item : shelf)
 	{
-		const Member* forefather = item.second.Anc;
+		Member* forefather = item.second->Anc;
 		string path = ".\\" + forefather->getName();
 		CreateDirectory(path.c_str(), NULL);
 		ofstream mytxtout(path + "\\" + forefather->getName() + ".txt");
-		mytxtout << item.second.getString();
+		mytxtout << item.second->getString();
 		mytxtout.close();
 		dfs_save(path, forefather);
 
@@ -181,8 +181,9 @@ void dfs_save(string path, const Member* root)
 Member* dfs_get(string path, string name)
 {
 	ifstream myfilein(path + "\\" + name + ".txt");
+	string info;
 	if(myfilein.is_open())
-		string info = getTxt(myfilein);
+		info = getTxt(myfilein);
 	myfilein.close();
 	string del_path = path + "\\" + name + ".txt";
 	DeleteFile(del_path.c_str());

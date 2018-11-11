@@ -160,13 +160,13 @@ void FamilyTree::PreRepair()
 			cout << "新生儿！来自" << get<1>(hist) << "、" << get<3>(hist).getName() << "，取名：" << get<2>(hist)->getName() << endl;
 			break;
 		case 1:
-			cout << "请求逐出宗族连带子孙！来自" << get<1>(hist) "、" << get<3>(hist).getName() << "，姓名：" << get<2>(hist)->getName() << endl;
+			cout << "请求逐出宗族连带子孙！来自" << get<1>(hist) <<"、" << get<3>(hist).getName() << "，姓名：" << get<2>(hist)->getName() << endl;
 			break;
 		case 2:
-			cout << "喜结连理！祝福" << get<1>(hist) "、" << get<3>(hist).getName() << "夫妇！" << endl;
+			cout << "喜结连理！祝福" << get<1>(hist)<< "、" << get<3>(hist).getName() << "夫妇！" << endl;
 			break;
 		case 3:
-			cout << "此事亦难全。" << get<1>(hist) "、" << get<3>(hist).getName() << "夫妇决定离婚。" << endl;
+			cout << "此事亦难全。" << get<1>(hist)<< "、" << get<3>(hist).getName() << "夫妇决定离婚。" << endl;
 			break;
 		case 4:
 			cout << "叹息。" << get<1>(hist) << "，昔人已逝，节哀。" << endl; 
