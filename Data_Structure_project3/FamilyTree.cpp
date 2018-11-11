@@ -23,6 +23,12 @@ FamilyTree::FamilyTree(Member* anc)
 	Patriarch = anc;
 
 }
+FamilyTree::FamilyTree(Member ancc)
+{
+	Member* p = new Member(ancc);
+	Anc = p;
+	Patriarch = p;
+}
 FamilyTree::~FamilyTree()
 {
 	Delete(Anc);
