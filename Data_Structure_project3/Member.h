@@ -18,8 +18,8 @@ class Spouse{
 		string death_date;
 		
 	public:
-		Spouse();
-		~Spouse();
+		Spouse() = default;
+		~Spouse() = default;
 		bool getAlive() const;
 		void setAlive(bool);
 		string getName() const;
@@ -37,11 +37,13 @@ class Member{
 	private:
 		int gene;
 		bool alive;
+		Status Id;
+		
 		string firstname;
 		string lastname;
 		bool gender;//true male false female
 		string birth_date;
-		string death_date;
+		string weddingdate;
 		vector<string> info;
 		Spouse spouse;
 		Member* father;
@@ -53,9 +55,11 @@ class Member{
 		
 	public:
 		friend class FamilyTree;
-		Member();
+		Member() = default;
 		Member(string);
-		~Member();
+		Member(bool a,Status b,string c,string d,bool e,string f,string g,unsigned long long h,bool i):
+		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),weddingdate(g),password(h),state(i){}
+		~Member() = default;
 		
 		bool getAlive() const;
 		void setAlive(bool);
@@ -65,8 +69,8 @@ class Member{
 		void setGender(bool);
 		string getBirth() const;
 		void setBirth(string);
-		string getDeath() const;
-		void setDeath(string);
+		string getWedding() const;
+		void setWedding(string);
 		string getInfo() const;//shengping
 		Spouse getSpouse() const;
 		void setInfo(string);
@@ -81,4 +85,6 @@ class Member{
 		vector<string> getChildname(); //return names of children
 		friend ofstream& operator<<(ofstream&,Member&);
 		friend ifstream& operator>>(ifstream&,Member&);
+		friend void dfs_save(string path, const Member* root);
+		friend Member* dfs_get(string path, string name);
 };
