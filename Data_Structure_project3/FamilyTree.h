@@ -22,7 +22,7 @@ class FamilyTree{
 		void GiveBirth(string MyName, Member MyKid);
 		void RemoveChild(string MyName, string MyKid);
 		
-		void GetMarried(string MyName, string MyWife, string Birth_date, string Death_date);
+		void GetMarried(string MyName, string MyWife, string Birth_date, string Marriage_date);
 		void Divorce(string MaName);
 		
 		void Die(string MyName);

@@ -5,12 +5,14 @@
 #include<Windows.h>
 #include<fileapi.h>
 #include<conio.h>
+#include<map>
 #include<string>
 #include<vector>
 
 #include"FamilyTree.h"
 #include"Member.h"
 
+using std::map;
 using std::string;
 using std::vector;
 using std::cin;
@@ -18,6 +20,10 @@ using std::cout;
 using std::endl;
 using std::ifstream;
 using std::ofstream;
+
+//To save all familytree
+map<string, FamilyTree> shelf;
+
 string ui = "　　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　　　。。。　　　　。。。　　　　　\n"
 "　　　　　　　　　　　。。。。　　　　　　　　　　　　　　。。　　　　　　　。。。　　。。。。　　　　　\n"
 "　　　　。。　　　　　　。。。　　　　　　　。　　　　　　。。。　　　　　　。。。　　。。　　　　　　　\n"
@@ -122,9 +128,15 @@ void preprocessing()
 		ifstream mytxtin(path + information + "\\" + information + ".txt");
 		string info = getTxt(mytxtin);
 		FamilyTree newTree(info);
-		newTree.Anc = dfs_get(path + information + "\\" + newTree.forefather(), newTree.forefather());
+		mytxtin.close();
+		string del_path = path + information + "\\" + information + ".txt";
+		DeleteFile(del_path.c_str());
+		newTree.Anc = dfs_get(path + information + "\\" + newTree.GetAnc(), newTree.GetAnc());
 		shelf[information] = newTree;
 	}
+	myfilein.close();
+	DeleteFile("Familytree.log");
+
 }
 bool save_all()
 {
@@ -170,16 +182,21 @@ Member* dfs_get(string path, string name)
 	ifstream myfilein(path + "\\" + name + ".txt");
 	string info = getTxt(myfilein);
 	myfilein.close();
+	string del_path = path + "\\" + name + ".txt";
+	DeleteFile(del_path.c_str());
 	myfilein.open(path + "\\" + name + ".csv");
 	Member* root = new Member(info);
 	myfilein >> (*root);
 	myfilein.close();
+	del_path = path + "\\" + name + ".csv";
+	DeleteFile(del_path.c_str());
 	vector<string> child = root->getChildname();
 	for (auto item : child)
 	{
 		Member* temp=dfs_get(path + "\\" + item, item);
 		root->children.push_back(temp);
 	}
+	DeleteFile(path.c_str());
 	return root;
 }
 string getTxt(ifstream& ifs)

@@ -24,6 +24,9 @@
     <ClCompile Include="Member.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="FamilyTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FamilyTree.h">

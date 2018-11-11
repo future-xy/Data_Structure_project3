@@ -22,6 +22,7 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FamilyTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Member.cpp" />
   </ItemGroup>
