@@ -57,6 +57,8 @@ class Member{
 		friend class FamilyTree;
 		Member() = default;
 		Member(string);
+		Member(bool a,Status b,string c,string d,bool e,string f,string g,unsigned long long h,bool i):
+		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),death_date(g),password(h),state(i){}
 		~Member() = default;
 		
 		bool getAlive() const;
