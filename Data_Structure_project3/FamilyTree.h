@@ -30,7 +30,8 @@ class FamilyTree{
 		Status Log_in(string MyName, unsigned long long pw);
 
 		Member* Search(string MyName);
-
+	
+                void PreRepair(); 
 		void Repair();
 		
 		void Save_Tree(int, string&);
