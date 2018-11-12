@@ -186,12 +186,6 @@ string Spouse::getBirth() const{
 void Spouse::setBirth(string birth){
 	birth_date = birth;
 }
-string Spouse::getDeath() const{
-	return death_date;
-}
-void Spouse::setDeath(string death){
-	death_date = death;
-}
 void Member::changeName(string name){
 	lastname = name;
 }
