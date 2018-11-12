@@ -16,8 +16,6 @@ Member::Member(string inform){
 	firstname = str;
 	ss >> str;
 	birth_date = str;
-	ss >> str;
-	weddingdate = str;
 	unsigned long long pre;
 	ss >> pre;
 	password = pre;
@@ -41,7 +39,7 @@ Member::Member(string inform){
 		ss >> str;
 		spouse.setBirth(str);
 		ss >> str;
-		spouse.setDeath(str);
+		spouse.setWedding(str);
 		ss >> str;
 		if(str=="男") spouse.setGender(true);
 		else spouse.setGender(false);
@@ -50,7 +48,7 @@ Member::Member(string inform){
 Spouse& Spouse::operator=(const Spouse& other){
 	alive = other.alive;
 	birth_date = other.birth_date;
-	death_date = other.death_date;
+	weddingdate = other.weddingdate;
 	name = other.name;
 	gender = other.gender;
 	return *this;
@@ -80,10 +78,10 @@ string Member::getBirth() const{
 void Member::setBirth(string birth){
 	birth_date = birth;
 }
-string Member::getWedding() const{
+string Spouse::getWedding() const{
 	return weddingdate;
 }
-void Member::setWedding(string wedding){
+void Spouse::setWedding(string wedding){
 	weddingdate = wedding;
 }
 string Member::getInfo() const{
@@ -130,7 +128,7 @@ string Member::Getmessage(){
 	if(alive)	str+="生\n";
 	else	str+="死\n";
 	str += (lastname+' '+firstname+'\n');
-	str+=(birth_date+'\n'+weddingdate+'\n');
+	str+=(birth_date+'\n');
 	stringstream ss;
 	string st;
 	ss << password;
@@ -153,7 +151,7 @@ string Member::Getmessage(){
 		if(spouse.getAlive())	str+="生\n";
 		else	str+="死\n";
 		str += (spouse.getName()+'\n');
-		str += (spouse.getBirth()+'\n'+spouse.getDeath()+'\n');
+		str += (spouse.getBirth()+'\n'+spouse.getWedding()+'\n');
 		str += spouse.getGender();
 	} else str += "单身\n";
 	return str;
