@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FamilyTree.cpp" />
+    <ClCompile Include="IOCtr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Member.cpp" />
   </ItemGroup>

@@ -13,10 +13,11 @@ typedef tuple<int, Member*, Member*, Spouse> Line;
 class FamilyTree{
 	public:
 		FamilyTree(Member* );
-		~FamilyTree();
 		FamilyTree() = default;
    		FamilyTree(bool, Status, string, string, bool, string, bool);
 		FamilyTree(string);
+		~FamilyTree();
+
 		string GetAnc();
 
 		void SetPatriarch(string);
