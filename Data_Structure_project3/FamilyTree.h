@@ -15,7 +15,7 @@ class FamilyTree{
 		FamilyTree(Member* );
 		~FamilyTree();
    		FamilyTree(bool, Status, string, string, bool, string, bool);
-		FamilyTree(string);
+		//FamilyTree(string);
 		string GetAnc();
 
 		void SetPatriarch(string);
@@ -41,13 +41,14 @@ class FamilyTree{
 		friend bool save_all();
 	private:
 		Member* Anc; // root
+		//string Anc_Name;
 		int Count_family;
 		int Count_family_alive;
 		void Dfs_Tree(string MyName, Member* p, Member* &Mem);
 		void Delete(Member*);
 		void Counting(Member*);
-		void Save_Tree(int, Member&);
-		void Read_Tree(Member*&);
+		//void Save_Tree(int, Member&);
+		//void Read_Tree(Member*&);
 		string TheTree;
 	
 		vector <Line> History; 
