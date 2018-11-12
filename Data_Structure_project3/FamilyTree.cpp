@@ -37,18 +37,23 @@ FamilyTree::~FamilyTree()
 	Delete(Anc);
 	Patriarch = nullptr;
 }
-
+/*
 FamilyTree::FamilyTree(string Orig)
 {
-	Anc = nullptr;
-	TheTree = Orig;
-	Read_Tree(Anc);
-}
+	//Anc = nullptr;
+	//TheTree = Orig;
+	//Read_Tree(Anc);
+	string s;
+	stringstream ss;
+	ss << Orig;
+
+}*/
 
 string FamilyTree::GetAnc()
 {
 	return Anc->getName();
 }
+
 
 void FamilyTree::SetPatriarch(string MyName)
 {
@@ -225,7 +230,30 @@ void FamilyTree::Repair()
 string FamilyTree::Tree_to_String()
 {
 	TheTree.clear();
-	Save_Tree(0, Anc);
+	TheTree += Anc->getName() + '\n';
+	
+	/*for (int i = 0; i < History.size(); ++i)
+	{
+		int n = get<0>(History[i]);
+		switch (n) {
+		case 0:
+			TheTree += "0 " + (get<1>(History[i]))->getName() + ' ' + get<2>(History[i])->getName + '\n';
+			break;
+
+		case 1:
+			TheTree += "1 " + (get<1>(History[i]))->getName() + ' ' + get<2>(History[i])->getName + '\n';
+			break;
+		case 2:
+			TheTree += "2 " + (get<1>(History[i]))->getName() + ' ' + get<3>(History[i]).getName + '\n';
+			break;
+		case 3:
+
+			break;
+		case 4:
+
+			break;
+		}
+	}*/
 	return TheTree;
 }
 
@@ -298,93 +326,5 @@ void FamilyTree::Counting(Member* anc)
 		if (p->alive)
 		Count_family_alive++;
 		q.pop();
-	}
-}
-
-void FamilyTree::Save_Tree(int count, Member* p)
-{
-	/*for (int i = 0; i < count; ++i)
-	{
-		TheTree += '*';
-	}
-	TheTree += ' ';
-	*/
-	if (p->alive)
-		TheTree += "1 ";
-	else TheTree += "0 ";
-
-	if (p->Id == 0)
-		TheTree += "0 ";
-	else TheTree += "1 ";
-
-	TheTree += p->lastname + ' ' + p->firstname + ' ';
-	
-	if (p->gender)
-		TheTree += "1 ";
-	else TheTree += "0 ";
-
-	TheTree += p->birth_date + ' ';
-	
-	if (p->state)
-	{
-		TheTree += "1 ";
-		TheTree += p->spouse.getName + ' ' + p->spouse.getBirth + ' ' + p->spouse.getWedding() + ' ';
-	}
-	else TheTree += "0 ";
-
-	TheTree += (char)(p->children.size() + 48);
-	TheTree += '\n';
-	for (int i = 0; i < p->children.size(); ++i)
-	{
-		Save_Tree(count + 1, (p->children)[i]);
-	}
-}
-
-//alive(a), Id(b), lastname(c), firstname(d), gender(e), birth_date(f), state(i)
-
-void FamilyTree::Read_Tree(Member*& p)
-{
-	p = new Member;
-	stringstream ss;
-	ss << TheTree;
-	int i;
-	string s;
-	ss >> i;
-	p->alive = i;
-	ss >> i;
-	if (i)
-		p->Id = clansman;
-	else
-	{
-		p->Id = patriarch; 
-		Patriarch = p;
-	}
-	ss >> s;
-	p->lastname = s;
-	ss >> s;
-	p->firstname = s;
-	ss >> i;
-	p->gender = i;
-	ss >> s;
-	p->birth_date = s;
-	ss >> i;
-	p->state = i;
-	if (i)
-	{
-		ss >> s;
-		Spouse couple;
-		couple.setName(s);
-		ss >> s;
-		couple.setBirth(s);
-		ss >> s;
-		couple.setWedding(s);
-		p->spouse = couple;
-	}
-	ss >> i;
-	for (int j = 0; j < i; ++j)
-	{
-		Member* ptr = nullptr;
-		Read_Tree(ptr);
-		p->children.push_back(ptr);
 	}
 }
