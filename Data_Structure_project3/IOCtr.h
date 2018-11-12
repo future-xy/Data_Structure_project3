@@ -126,9 +126,10 @@ void preprocessing()
 		if (information.empty() || information == "\n")
 			continue;
 		ifstream mytxtin(path + information + "\\" + information + ".txt");
+		string info;
 		if(mytxtin.is_open())
-			string info = getTxt(mytxtin);
-		FamilyTree* tree_ptr= new FamilyTree(info);
+			info = getTxt(mytxtin);
+		FamilyTree* tree_ptr = new FamilyTree(info);
 		mytxtin.close();
 		string del_path = path + information + "\\" + information + ".txt";
 		DeleteFile(del_path.c_str());
@@ -155,10 +156,9 @@ bool save_all()
 		string path = ".\\" + forefather->getName();
 		CreateDirectory(path.c_str(), NULL);
 		ofstream mytxtout(path + "\\" + forefather->getName() + ".txt");
-		mytxtout << item.second->getMessage();
+		mytxtout << item.second->Tree_to_String();
 		mytxtout.close();
 		dfs_save(path, forefather);
-
 	}
 }
 void dfs_save(string path, const Member* root)

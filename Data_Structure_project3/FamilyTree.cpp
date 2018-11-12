@@ -51,7 +51,12 @@ FamilyTree::FamilyTree(string Orig)
 
 string FamilyTree::GetAnc()
 {
-	return Anc->getName();
+	return Anc_Name;
+}
+
+FamilyTree::FamilyTree(string info)
+{
+	Anc_Name = info;
 }
 
 

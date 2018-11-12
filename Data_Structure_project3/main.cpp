@@ -128,7 +128,7 @@ void model_1()
 		case 7:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name]->getMessage();
+				cout << shelf[name]->Tree_to_String();
 			else
 				cout << "此家谱不存在\n";
 			break;
@@ -218,7 +218,7 @@ void model_2()
 		case 7:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name]->getMessage();
+				cout << shelf[name]->Tree_to_String();
 			else
 				cout << "此家谱不存在\n";
 			break;
@@ -273,7 +273,7 @@ void model_3()
 		case 2:
 			cin >> name;
 			if (shelf.count(name))
-				cout << shelf[name]->getMessage();
+				cout << shelf[name]->Tree_to_String();
 			else
 				cout << "此家谱不存在\n";
 			break;
