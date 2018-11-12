@@ -5,6 +5,8 @@
 #include <queue>
 #include <tuple>
 #include <iostream>
+#include <sstream>
+using std::stringstream;
 using std::string;
 using std::vector;
 using std::tuple;
@@ -23,9 +25,10 @@ FamilyTree::FamilyTree(Member* anc)
 	Patriarch = anc;
 
 }
-FamilyTree::FamilyTree(Member ancc)
+FamilyTree::FamilyTree(bool a, Status b, string c, string d, bool e, string f, bool g)
 {
-	Member* p = new Member(ancc);
+	
+	Member* p = new Member(a,b,c,d,e,f,g);
 	Anc = p;
 	Patriarch = p;
 }
@@ -33,6 +36,13 @@ FamilyTree::~FamilyTree()
 {
 	Delete(Anc);
 	Patriarch = nullptr;
+}
+
+FamilyTree::FamilyTree(string Orig)
+{
+	Anc = nullptr;
+	TheTree = Orig;
+	Read_Tree(Anc);
 }
 
 string FamilyTree::GetAnc()
@@ -212,11 +222,11 @@ void FamilyTree::Repair()
 	}
 }
 
-void FamilyTree::Save_Tree(int count, string &s)
+string FamilyTree::Tree_to_String()
 {
-
-	
-
+	TheTree.clear();
+	Save_Tree(0, Anc);
+	return TheTree;
 }
 
 //................Private.function.....................
@@ -288,5 +298,93 @@ void FamilyTree::Counting(Member* anc)
 		if (p->alive)
 		Count_family_alive++;
 		q.pop();
+	}
+}
+
+void FamilyTree::Save_Tree(int count, Member* p)
+{
+	/*for (int i = 0; i < count; ++i)
+	{
+		TheTree += '*';
+	}
+	TheTree += ' ';
+	*/
+	if (p->alive)
+		TheTree += "1 ";
+	else TheTree += "0 ";
+
+	if (p->Id == 0)
+		TheTree += "0 ";
+	else TheTree += "1 ";
+
+	TheTree += p->lastname + ' ' + p->firstname + ' ';
+	
+	if (p->gender)
+		TheTree += "1 ";
+	else TheTree += "0 ";
+
+	TheTree += p->birth_date + ' ';
+	
+	if (p->state)
+	{
+		TheTree += "1 ";
+		TheTree += p->spouse.getName + ' ' + p->spouse.getBirth + ' ' + p->spouse.getWedding() + ' ';
+	}
+	else TheTree += "0 ";
+
+	TheTree += (char)(p->children.size() + 48);
+	TheTree += '\n';
+	for (int i = 0; i < p->children.size(); ++i)
+	{
+		Save_Tree(count + 1, (p->children)[i]);
+	}
+}
+
+//alive(a), Id(b), lastname(c), firstname(d), gender(e), birth_date(f), state(i)
+
+void FamilyTree::Read_Tree(Member*& p)
+{
+	p = new Member;
+	stringstream ss;
+	ss << TheTree;
+	int i;
+	string s;
+	ss >> i;
+	p->alive = i;
+	ss >> i;
+	if (i)
+		p->Id = clansman;
+	else
+	{
+		p->Id = patriarch; 
+		Patriarch = p;
+	}
+	ss >> s;
+	p->lastname = s;
+	ss >> s;
+	p->firstname = s;
+	ss >> i;
+	p->gender = i;
+	ss >> s;
+	p->birth_date = s;
+	ss >> i;
+	p->state = i;
+	if (i)
+	{
+		ss >> s;
+		Spouse couple;
+		couple.setName(s);
+		ss >> s;
+		couple.setBirth(s);
+		ss >> s;
+		couple.setWedding(s);
+		p->spouse = couple;
+	}
+	ss >> i;
+	for (int j = 0; j < i; ++j)
+	{
+		Member* ptr = nullptr;
+		Read_Tree(ptr);
+		p->children.push_back(ptr);
 	}
 }
