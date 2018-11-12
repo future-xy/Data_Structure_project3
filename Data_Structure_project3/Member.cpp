@@ -84,6 +84,12 @@ string Spouse::getWedding() const{
 void Spouse::setWedding(string wedding){
 	weddingdate = wedding;
 }
+string Spouse::getWedding() const{
+	return weddingdate;
+}
+void Spouse::setWedding(string wedding){
+	weddingdate = wedding;
+}
 string Member::getInfo() const{
 	string str;
 	for(unsigned int i=0;i<info.size();++i){
