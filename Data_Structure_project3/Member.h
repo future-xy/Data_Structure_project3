@@ -1,10 +1,11 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
-
 #include<vector>
 #include<string>
 #include<fstream>
+
+#include"header.h"
 
 #define Max_size 10
 
@@ -13,7 +14,6 @@ using std::vector;
 using std::ifstream;
 using std::ofstream;
 
-extern enum Status;
 extern unsigned long long String_HashValue(string s);
 
 class Spouse{

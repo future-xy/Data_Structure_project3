@@ -8,7 +8,7 @@ Member::Member(string inform){
 	string str;
 	ss << inform;
 	ss >> str;
-	if(str=="ç”Ÿ")
+	if(str=="Éú")
 		alive = true;
 	else
 		alive = false;
@@ -22,7 +22,7 @@ Member::Member(string inform){
 	ss >> pre;
 	password = pre;
 	ss >> str;
-	if(str=="ç”·") gender = true;
+	if(str=="ÄĞ") gender = true;
 	else gender = false;
 	unsigned int temp;
 	ss >> temp;
@@ -31,10 +31,10 @@ Member::Member(string inform){
 		child_name.push_back(str);
 	}
 	ss >> str;
-	if(str=="å·²å©š"){
+	if(str=="ÒÑ»é"){
 		state = true;
 		ss >> str;
-		if(str=="ç”Ÿ") spouse.setAlive(true);
+		if(str=="Éú") spouse.setAlive(true);
 		else spouse.setAlive(false);
 		ss >> str;
 		spouse.setName(str);
@@ -43,7 +43,7 @@ Member::Member(string inform){
 		ss >> str;
 		spouse.setWedding(str);
 		ss >> str;
-		if(str=="ç”·") spouse.setGender(true);
+		if(str=="ÄĞ") spouse.setGender(true);
 		else spouse.setGender(false);
 	} else state = false;
 }
@@ -86,12 +86,7 @@ string Spouse::getWedding() const{
 void Spouse::setWedding(string wedding){
 	weddingdate = wedding;
 }
-string Spouse::getWedding() const{
-	return weddingdate;
-}
-void Spouse::setWedding(string wedding){
-	weddingdate = wedding;
-}
+
 string Member::getInfo() const{
 	string str;
 	for(unsigned int i=0;i<info.size();++i){
@@ -133,8 +128,8 @@ unsigned long long Member::getPassword() const{
 }
 string Member::Getmessage(){
 	string str;
-	if(alive)	str+="ç”Ÿ\n";
-	else	str+="æ­»\n";
+	if(alive)	str+="Éú\n";
+	else	str+="ËÀ\n";
 	str += (lastname+' '+firstname+'\n');
 	str+=(birth_date+'\n');
 	stringstream ss;
@@ -144,8 +139,8 @@ string Member::Getmessage(){
 	str += st;
 	str += '\n';
 	
-	if(gender)    str+="ç”·\nå­©å­æ•°:";
-	else str+="å¥³\nå­©å­æ•°:";
+	if(gender)    str+="ÄĞ\nº¢×ÓÊı:";
+	else str+="Å®\nº¢×ÓÊı:";
 	int num = children.size();
 	ss << num;
 	ss >> st;
@@ -155,13 +150,13 @@ string Member::Getmessage(){
 	str += (child_name[i]+'\n');
 	
 	if(state){
-		str+="å·²å©š\né…å¶:\n";
-		if(spouse.getAlive())	str+="ç”Ÿ\n";
-		else	str+="æ­»\n";
+		str+="ÒÑ»é\nÅäÅ¼:\n";
+		if(spouse.getAlive())	str+="Éú\n";
+		else	str+="ËÀ\n";
 		str += (spouse.getName()+'\n');
 		str += (spouse.getBirth()+'\n'+spouse.getWedding()+'\n');
 		str += spouse.getGender();
-	} else str += "å•èº«\n";
+	} else str += "µ¥Éí\n";
 	return str;
 }
 bool Spouse::getAlive() const{

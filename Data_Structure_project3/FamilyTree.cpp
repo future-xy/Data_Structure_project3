@@ -180,23 +180,23 @@ void FamilyTree::PreRepair()
 	for (int i = 0; i < History.size(); ++i)
 	{
 		Line hist = History[i];
-		cout << "äº‹ä»¶ " << i << "ï¼š" << endl;
+		cout << "ÊÂ¼þ " << i << "£º" << endl;
 		int oper = get<0>(hist);
 		switch (oper) {
 		case 0:
-			cout << "æ–°ç”Ÿå„¿ï¼æ¥è‡ª" << get<1>(hist) << "ã€" << get<3>(hist).getName() << "ï¼Œå–åï¼š" << get<2>(hist)->getName() << endl;
+			cout << "ÐÂÉú¶ù£¡À´×Ô" << get<1>(hist) << "¡¢" << get<3>(hist).getName() << "£¬È¡Ãû£º" << get<2>(hist)->getName() << endl;
 			break;
 		case 1:
-			cout << "è¯·æ±‚é€å‡ºå®—æ—è¿žå¸¦å­å­™ï¼æ¥è‡ª" << get<1>(hist) <<"ã€" << get<3>(hist).getName() << "ï¼Œå§“åï¼š" << get<2>(hist)->getName() << endl;
+			cout << "ÇëÇóÖð³ö×Ú×åÁ¬´ø×ÓËï£¡À´×Ô" << get<1>(hist) <<"¡¢" << get<3>(hist).getName() << "£¬ÐÕÃû£º" << get<2>(hist)->getName() << endl;
 			break;
 		case 2:
-			cout << "å–œç»“è¿žç†ï¼ç¥ç¦" << get<1>(hist)<< "ã€" << get<3>(hist).getName() << "å¤«å¦‡ï¼" << endl;
+			cout << "Ï²½áÁ¬Àí£¡×£¸£" << get<1>(hist)<< "¡¢" << get<3>(hist).getName() << "·ò¸¾£¡" << endl;
 			break;
 		case 3:
-			cout << "æ­¤äº‹äº¦éš¾å…¨ã€‚" << get<1>(hist)<< "ã€" << get<3>(hist).getName() << "å¤«å¦‡å†³å®šç¦»å©šã€‚" << endl;
+			cout << "´ËÊÂÒàÄÑÈ«¡£" << get<1>(hist)<< "¡¢" << get<3>(hist).getName() << "·ò¸¾¾ö¶¨Àë»é¡£" << endl;
 			break;
 		case 4:
-			cout << "å¹æ¯ã€‚" << get<1>(hist) << "ï¼Œæ˜”äººå·²é€ï¼ŒèŠ‚å“€ã€‚" << endl; 
+			cout << "Ì¾Ï¢¡£" << get<1>(hist) << "£¬ÎôÈËÒÑÊÅ£¬½Ú°§¡£" << endl; 
 			break;
 		}
 		

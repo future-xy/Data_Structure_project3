@@ -1,13 +1,14 @@
 #ifndef _FAMILYTREE_H
 #define _FAMILYTREE_H
 #include "Member.h"
+#include "header.h"
+
 #include <string>
 #include <tuple>
 using std::tuple;
 using std::string;
 using std::vector;
 
-extern enum Statue;
 typedef tuple<int, Member*, Member*, Spouse> Line;
 
 class FamilyTree{

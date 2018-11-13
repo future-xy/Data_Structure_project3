@@ -3,8 +3,6 @@
 #include <map>
 
 #include "IOCtr.h"
-#include "FamilyTree.h"
-#include "Member.h"
 
 using std::string;
 using std::cout;
@@ -18,7 +16,7 @@ using std::map;
 void Initial()
 {
 	preprocessing();
-	cout << ui;
+//	cout << ui;
 	int order;
 	cin >> order;
 	if (order)
@@ -37,6 +35,7 @@ int main() {
 	Initial();
 	int ok = 1;
 	while (ok)
+	{
 		switch (authority)
 		{
 		case patriarch:
@@ -52,6 +51,8 @@ int main() {
 
 			break;
 		}
+		cin >> ok;
+	}
 	if (save_all())
 		cout << "Bye!\n";
 	else
@@ -255,6 +256,7 @@ void model_3()
 		{
 		case 0:
 			ok = 0;
+			break;
 		case 1:
 			cin >> name;
 			for (auto item : shelf)
@@ -288,7 +290,7 @@ void model_3()
 			cin >> birthday;
 			new_tree = new FamilyTree(true, patriarch, anc_family_name, anc_first_name, true, birthday, false);
 			shelf[temp_family] = new_tree;
-
+			break;
 		default:
 			break;
 		}

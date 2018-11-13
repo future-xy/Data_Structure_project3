@@ -1,5 +1,11 @@
 #include"IOCtr.h"
 
+string hometown = "";
+Status authority = tourist;
+string username = "";
+map<string, FamilyTree*> shelf;
+
+
 Status sign_in()
 {
 	cout << "ÇëÊäÈëÕËºÅ£º";
@@ -44,7 +50,7 @@ Status sign_in()
 			break;
 		}
 	}
-
+	return tourist;
 }
 unsigned long long String_HashValue(string s) {
 	unsigned long long PrimeBase = 233, PrimeModular = 19260817,

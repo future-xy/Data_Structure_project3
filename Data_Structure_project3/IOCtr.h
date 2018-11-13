@@ -12,7 +12,6 @@
 #include<vector>
 
 #include"FamilyTree.h"
-#include"Member.h"
 
 using std::map;
 using std::string;
@@ -23,46 +22,17 @@ using std::endl;
 using std::ifstream;
 using std::ofstream;
 
-//To save all familytree
-map<string, FamilyTree*> shelf;
+extern map<string, FamilyTree*> shelf;
 
-string ui = "　　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　　　。。。　　　　。。。　　　　　\n"
-"　　　　　　　　　　　。。。。　　　　　　　　　　　　　　。。　　　　　　　。。。　　。。。。　　　　　\n"
-"　　　　。。　　　　　　。。。　　　　　　　。　　　　　　。。。　　　　　　。。。　　。。　　　　　　　\n"
-"　　　。。。。。。。。。。。。。。。。。。。。。　　　　　　。。。　　　　　。。。　。。。　　。。。　　\n"
-"　　　。。。　　　　　　　　　　　　　　　。。。。　　　　　。。。　。。。。。。。。。。。。。。。。。　\n"
-"　　。。。　　　　　　　　　　　　　　　。。。　　　　　　　　　　　　　　　　。。　。。。　　。　　　　\n"
-"　　。。。　　　　　　　　　　　　。。。。。　　　　　　　　　　　　　。。　　。。　。。。　。。。　　　\n"
-"　　　　　。。。。。。。。。。。。。。。。　　　　　　　　　　　　　　。。。　。。　。。。　。。。。　　\n"
-"　　　　　　　　　。。。。　　　　　　　　　　　　　　　　　。。。　　　。。。。。　。。。。。。　　　　\n"
-"　　　　　　　　。。。。。　　　　　。。。　　　　　。。。。。。。　　　。。。。。　。。。。。　　　　　\n"
-"　　　　　　　。。。　。。。　　　。。。。。　　　　　　　　。。。　　　　　　。。　。。。。　　。。。　\n"
-"　　　　　。。。　　　。。。。。。。。　　　　　　　　　　　。。。。。。。。。。。。。。。。。。。。。。\n"
-"　　　。。。。　　　。。。。。。。。　　　　　　　　　　　　。。。　　　　　　　　　　　　　　　　　　　\n"
-"　。。。。　　　　。。。　。。。。。　　　　　　　　　　　　。。。　　　。。　　　　　　　　。。　　　　\n"
-"　　　　　　　。。。　　。。。。。。。　　　　　　　　　　　。。。　　　。。。。。。。。。。。。。　　　\n"
-"　　　　　　。。。　　。。。。。　。。　　　　　　　　　　　。。。　　　。。。　　　　　　。。。　　　　\n"
-"　　　　。。。　　　。。。。。。　。。。　　　　　　　　　　。。。　。。。。。　　　　　　。。。　　　　\n"
-"　　。。。　　　　。。。。　。。。　。。。　　　　　　　　　。。。。。。。。。　　　　　　。。。　　　　\n"
-"　　　　　　　　。。。　　　。。。　　。。。。　　　　　　　。。。。。　。。。。。。。。。。。。　　　　\n"
-"　　　　　　。。。　　　　。。。。　　　。。。。。　　　　　。。。。　　。。。　　　　　　。。。　　　　\n"
-"　　　　。。。。　　　　　。。。　　　　　。。　　　　　　　。。。　　　。。。　　　　　　。。。　　　　\n"
-"　　。。。。　　　。。。。。。。　　　　　　　　　　　　　　。。。　　　。。。。。。。。。。。。　　　　\n"
-"　。。　　　　　　　　。。。。　　　　　　　　　　　　　　　　　　　　　。。。　　　　　　。。。　　　　\n"
-"　　　　　　　　　　　　。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 \n";
-
-
-enum Status
-{
-	patriarch, clansman, tourist, wrong_pw
-};
-string hometown = "UNKNOW";
-Status authority = tourist;
-string username;
+extern string hometown;
+extern string username;
 Status sign_in();
-unsigned long long String_HashValue(string s);
+extern Status authority;
+
 void preprocessing();
 bool save_all();
+
+unsigned long long String_HashValue(string s);
 void dfs_save(string path, const Member* root);
 Member* dfs_get(string path, string name);
 string getTxt(ifstream& ifs);

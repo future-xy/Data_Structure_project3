@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FamilyTree.h" />
+    <ClInclude Include="header.h" />
     <ClInclude Include="IOCtr.h" />
     <ClInclude Include="Member.h" />
   </ItemGroup>
