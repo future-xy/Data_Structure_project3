@@ -8,7 +8,7 @@ Member::Member(string inform){
 	string str;
 	ss << inform;
 	ss >> str;
-	if(str=="Éú")
+	if(str=="ç”Ÿ")
 		alive = true;
 	else
 		alive = false;
@@ -22,7 +22,7 @@ Member::Member(string inform){
 	ss >> pre;
 	password = pre;
 	ss >> str;
-	if(str=="ÄĞ") gender = true;
+	if(str=="ç”·") gender = true;
 	else gender = false;
 	unsigned int temp;
 	ss >> temp;
@@ -31,10 +31,10 @@ Member::Member(string inform){
 		child_name.push_back(str);
 	}
 	ss >> str;
-	if(str=="ÒÑ»é"){
+	if(str=="å·²å©š"){
 		state = true;
 		ss >> str;
-		if(str=="Éú") spouse.setAlive(true);
+		if(str=="ç”Ÿ") spouse.setAlive(true);
 		else spouse.setAlive(false);
 		ss >> str;
 		spouse.setName(str);
@@ -43,7 +43,7 @@ Member::Member(string inform){
 		ss >> str;
 		spouse.setWedding(str);
 		ss >> str;
-		if(str=="ÄĞ") spouse.setGender(true);
+		if(str=="ç”·") spouse.setGender(true);
 		else spouse.setGender(false);
 	} else state = false;
 }
@@ -128,35 +128,35 @@ unsigned long long Member::getPassword() const{
 }
 string Member::Getmessage() const{
 	string str;
-	if(alive)	str+="Éú\n";
-	else	str+="ËÀ\n";
+	if(alive)	str+="ç”Ÿ\n";
+	else	str+="æ­»\n";
 	str += (lastname+' '+firstname+'\n');
 	str+=(birth_date+'\n');
-	stringstream ss;
+	stringstream ss,_ss;
 	string st;
 	ss << password;
 	ss >> st;
 	str += st;
 	str += '\n';
 	
-	if(gender)    str+="ÄĞ\nº¢×ÓÊı:";
-	else str+="Å®\nº¢×ÓÊı:";
+	if(gender)    str+="ç”·\nå­©å­æ•°:";
+	else str+="å¥³\nå­©å­æ•°:";
 	int num = children.size();
-	ss << num;
-	ss >> st;
+	_ss << num;
+	_ss >> st;
 	str += st;
 	str += '\n';
 	for(unsigned int i=0;i<child_name.size();++i)
 	str += (child_name[i]+'\n');
 	
 	if(state){
-		str+="ÒÑ»é\nÅäÅ¼:\n";
-		if(spouse.getAlive())	str+="Éú\n";
-		else	str+="ËÀ\n";
+		str+="å·²å©š\né…å¶:\n";
+		if(spouse.getAlive())	str+="ç”Ÿ\n";
+		else	str+="æ­»\n";
 		str += (spouse.getName()+'\n');
 		str += (spouse.getBirth()+'\n'+spouse.getWedding()+'\n');
 		str += spouse.getGender();
-	} else str += "µ¥Éí\n";
+	} else str += "å•èº«\n";
 	return str;
 }
 bool Spouse::getAlive() const{
