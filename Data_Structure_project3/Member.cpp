@@ -8,8 +8,10 @@ Member::Member(string inform){
 	string str;
 	ss << inform;
 	ss >> str;
-	if(str=="生")	alive = true;
-	else	alive = false;
+	if(str=="生")
+		alive = true;
+	else
+		alive = false;
 	ss >> str;
 	lastname = str;
 	ss >> str;

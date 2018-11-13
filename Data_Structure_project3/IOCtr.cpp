@@ -102,6 +102,7 @@ bool save_all()
 		mytxtout.close();
 		dfs_save(path, forefather);
 	}
+	return true;
 }
 void dfs_save(string path, const Member* root)
 {

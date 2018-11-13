@@ -1,6 +1,6 @@
-#pragma once
+#ifndef MEMBER_H
+#define MEMBER_H
 
-#include"IOCtr.h"
 
 #include<vector>
 #include<string>
@@ -12,6 +12,9 @@ using std::string;
 using std::vector;
 using std::ifstream;
 using std::ofstream;
+
+extern enum Status;
+extern unsigned long long String_HashValue(string s);
 
 class Spouse{
 	private:
@@ -50,7 +53,6 @@ class Member{
 		vector<string> info;
 		Spouse spouse;
 		Member* father;
-		enum identity{patriarch, clansman, tourist};
 		unsigned long long password;
 		bool state; //true:married false:single
 		vector<Member*> children;
@@ -91,3 +93,4 @@ class Member{
 		friend void dfs_save(string path, const Member* root);
 		friend Member* dfs_get(string path, string name);
 };
+#endif // !MEMBER_H

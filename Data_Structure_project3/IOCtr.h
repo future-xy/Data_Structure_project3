@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IOCTR_H
+#define IOCTR_H
+
 
 #include<iostream>
 #include<fstream>
@@ -64,3 +66,5 @@ bool save_all();
 void dfs_save(string path, const Member* root);
 Member* dfs_get(string path, string name);
 string getTxt(ifstream& ifs);
+
+#endif // !IOCTR_H
