@@ -85,7 +85,7 @@ class Member{
 		void marry(Spouse);
 		void divorce();
 		unsigned long long getPassword() const;
-		string Getmessage();//all message
+		string Getmessage() const;//all message
 		void changeName(string);//change lastname
 		vector<string> getChildname(); //return names of children
 		friend ofstream& operator<<(ofstream&,Member&);

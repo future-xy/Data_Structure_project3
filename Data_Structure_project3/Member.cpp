@@ -126,7 +126,7 @@ void Member::setPassword(unsigned long long pass){
 unsigned long long Member::getPassword() const{
 	return password;
 }
-string Member::Getmessage(){
+string Member::Getmessage() const{
 	string str;
 	if(alive)	str+="Éú\n";
 	else	str+="ËÀ\n";

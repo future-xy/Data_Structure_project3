@@ -95,15 +95,15 @@ bool save_all()
 	{
 		information += item.first + "\n";
 	}
-	ofstream myfileout("Familytree.log");
+	ofstream myfileout( "Familytree.log");
 	myfileout << information << endl;
 	myfileout.close();
 	for (auto item : shelf)
 	{
 		Member* forefather = item.second->Anc;
-		string path = ".\\" + forefather->getName();
+		string path = ".\\" + item.first;
 		CreateDirectory(path.c_str(), NULL);
-		ofstream mytxtout(path + "\\" + forefather->getName() + ".txt");
+		ofstream mytxtout(path + "\\" + item.first + ".txt");
 		mytxtout << item.second->Tree_to_String();
 		mytxtout.close();
 		dfs_save(path, forefather);
@@ -112,10 +112,10 @@ bool save_all()
 }
 void dfs_save(string path, const Member* root)
 {
-	string cur_path = path + root->getName();
+	string cur_path = path + "\\" + root->getName();
 	CreateDirectory(cur_path.c_str(), NULL);
 	ofstream myfileout(cur_path + "\\" + root->getName() + ".txt");
-	string info = root->getInfo();
+	string info = root->Getmessage();
 	myfileout << info;
 	myfileout.close();
 	myfileout.open(cur_path + "\\" + root->getName() + ".csv");
