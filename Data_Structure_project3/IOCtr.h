@@ -23,7 +23,6 @@ using std::ifstream;
 using std::ofstream;
 
 extern map<string, FamilyTree*> shelf;
-
 extern string hometown;
 extern string username;
 Status sign_in();
