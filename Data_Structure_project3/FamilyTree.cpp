@@ -92,25 +92,14 @@ void FamilyTree::_GiveBirth(string MyName, bool alive, Status id, string lastn, 
 	if (Mem != nullptr)
 	{
 		ohmykid += Mem->lastname;
-		ohmykid += lastn + ' ' + firstn + ' ';
-		ohmykid += alive + ' ';
-		switch (id) {
-		case 0:
-			ohmykid += "0 ";
-			break;
-		case 1:
-			ohmykid += "1 ";
-			break;
-		case 2:
-			ohmykid += "2 ";
-			break;
-		case 3:
-			ohmykid += "3 ";
-			break;
-		}
-		ohmykid += sex + ' ';
-		ohmykid += birthday + ' ';
-		ohmykid += sta;
+		ohmykid += ' ';
+		ohmykid += firstn + ' '; 
+		ohmykid += ' ';
+		if(sex)
+		ohmykid += "1 ";
+		else ohmykid += "0 ";
+		ohmykid += ' ';
+		ohmykid += birthday;
 
 		if (Mem->state)
 		s = Mem->spouse.getName();
@@ -217,6 +206,9 @@ void FamilyTree::_Die(string MyName, string date)
 
 Status FamilyTree::Log_in(string MyName, unsigned long long pw)
 {
+
+	//Counting(Anc);
+
 	Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
 	if (Mem != nullptr)
@@ -277,7 +269,7 @@ void FamilyTree::Repair()
 		Line hist = History.front();
 		int oper = get<0>(hist);
 		stringstream ss;
-		bool alive; int id; string lastn, firstn; bool sex; string birthday; bool sta;
+		bool alive; int id = 1; string lastn, firstn; bool sex; string birthday; bool sta;
 		string Name, wedding;
 		Member* Mem;
 		switch (oper) {
@@ -289,8 +281,6 @@ void FamilyTree::Repair()
 				ss << get<2>(hist);
 				ss >> lastn;
 				ss >> firstn;
-				ss >> alive;
-				ss >> id;
 				ss >> sex;
 				ss >> birthday;
 				Mem->GiveBirth( id,lastn, firstn, sex, birthday);
@@ -485,3 +475,4 @@ void FamilyTree::Counting(Member* anc)
 		q.pop();
 	}
 }
+
