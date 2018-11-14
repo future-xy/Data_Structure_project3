@@ -222,8 +222,8 @@ void Member::GiveBirth(int id,string last,string first,bool _gender,string birth
 	str+=getTime();
 	str+=',';
 	str+=(lastname+firstname);
-	if()		str+="ç”Ÿäº†ä¸ªå„¿å­,å„¿å­å§“å:";
-	else str+="ç”Ÿäº†ä¸ªå¥³å„¿,å¥³å„¿å§“å:";
+	if()		str+="ÉúÁË¸ö¶ù×Ó,¶ù×ÓĞÕÃû:";
+	else str+="ÉúÁË¸öÅ®¶ù,Å®¶ùĞÕÃû:";
 	str+=name;
 	info.push_back(str);
 }
@@ -231,9 +231,9 @@ void Member::RemoveChild(string name){
 	string str;
 	str+=getTime();
 	str+=',';
-	str+="å°†";
+	str+="½«";
 	str+=name;
-	str+="é€å‡ºå®¶é—¨";
+	str+="Öğ³ö¼ÒÃÅ";
 	info.push_back(str);
 }
 bool Member::Divorce(){
@@ -243,7 +243,7 @@ bool Member::Divorce(){
 		str+=getTime();
 		str+=',';
 		str+=getName();
-		str+="ç¦»å©šäº†";
+		str+="Àë»éÁË\n";
 		state = false; 
 		info.push_back(str);
 		return true;
@@ -255,7 +255,7 @@ bool Member::Die(){
 		str+=getTime();
 		str+=',';
 		str+=getName();
-		str+="å»ä¸–äº†";
+		str+="È¥ÊÀÁË\n";
 		alive = false;
 		info.push_back(str);
 		return true;
@@ -273,8 +273,8 @@ bool Member::GetMarried(string name,string birth,string wedding){
 		str+=getTime();
 		str+=',';
 		str+=getName();
-		str+="ç»“å©šäº†,";
-		str+="ç»“å©šå¯¹è±¡:"
+		str+="½á»éÁË,";
+		str += "½á»é¶ÔÏó:";
 		str+=name;
 		state = true;
 		info.push_back(str);

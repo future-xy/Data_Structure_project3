@@ -25,6 +25,7 @@ class Spouse{
 		string weddingdate;
 		
 	public:
+		friend class Member;
 		Spouse() = default;
 		~Spouse() = default;
 		bool getAlive() const;
@@ -68,7 +69,7 @@ class Member{
 			string str = getTime();
 			str+=',';
 			str+=getName();
-			str+="å‡ºç”Ÿäº†\n";
+			str+="³öÉúÁË\n";
 		}
 		~Member() = default;
 		
