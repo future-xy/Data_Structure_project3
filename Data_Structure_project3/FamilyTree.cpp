@@ -116,7 +116,7 @@ void FamilyTree::_GiveBirth(string MyName, bool alive, Status id, string lastn, 
 	Line tup1(0, MyName, ohmykid, s);
 	History.push_back(tup1);
 } 
-void FamilyTree::_RemoveChild(string MyName, string MyKid)
+void FamilyTree::_RemoveChild(string MyName, string MyKid, string date)
 {
 	/*Spouse s;
 	Member* Mem = nullptr;
@@ -145,7 +145,7 @@ void FamilyTree::_RemoveChild(string MyName, string MyKid)
 		if (Mem->state)
 		s = Mem->spouse.getName();
 	}
-	Line tup1(1, MyName, MyKid, s);
+	Line tup1(1, MyName, MyKid, date);
 	History.push_back(tup1);
 }
 
@@ -173,7 +173,7 @@ void FamilyTree::_GetMarried(string MyName, string MyWife, string Birth_date, st
 	Line tup1(2, MyName, s, ohmywifee);
 	History.push_back(tup1);
 }
-void FamilyTree::_Divorce(string MyName)
+void FamilyTree::_Divorce(string MyName, string date)
 {
 	/*Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
@@ -184,7 +184,7 @@ void FamilyTree::_Divorce(string MyName)
 		History.push_back(tup1);
 	}*/
 	string s;
-	string ss;
+	//string ss;
 	Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
 	if (Mem != nullptr)
@@ -192,11 +192,11 @@ void FamilyTree::_Divorce(string MyName)
 		if (Mem->state)
 			s = Mem->spouse.getName();
 	}
-	Line tup1(3, MyName, ss, s);
+	Line tup1(3, MyName, date, s);
 	History.push_back(tup1);
 }
 
-void FamilyTree::_Die(string MyName)
+void FamilyTree::_Die(string MyName, string date)
 {
 	/*Spouse s;
 	Member* Mem = nullptr;
@@ -208,9 +208,8 @@ void FamilyTree::_Die(string MyName)
 		History.push_back(tup1);
 	}*/
 	string s;
-	Line tup1(4, MyName, s, s);
-	History.push_back(tup1);
-	
+	Line tup1(4, MyName, date, s);
+	History.push_back(tup1);	
 }
 
 
@@ -240,7 +239,7 @@ void FamilyTree::PreRepair()
 	for (int i = 0; i < History.size(); ++i)
 	{
 		Line hist = History[i];
-		cout << "ÊÂ¼þ " << i << "£º" << endl;
+		cout << "äº‹ä»¶ " << i << "ï¼š" << endl;
 		int oper = get<0>(hist);
 		stringstream ss;
 		string Name;
@@ -250,22 +249,22 @@ void FamilyTree::PreRepair()
 			ss << get<2>(hist);
 			ss >> Name;
 			ss >> Name;
-			cout << "ÐÂÉú¶ù£¡À´×Ô" << get<1>(hist) << "¡¢" << get<3>(hist) << "£¬È¡Ãû£º" << Name << endl;
+			cout << "æ–°ç”Ÿå„¿ï¼æ¥è‡ª" << get<1>(hist) << "ã€" << get<3>(hist) << "ï¼Œå–åï¼š" << Name <<endl;
 			break;
 		case 1:
-			cout << "ÇëÇóÖð³ö×Ú×åÁ¬´ø×ÓËï£¡À´×Ô" << get<1>(hist) <<"¡¢" << get<3>(hist) << "£¬ÐÕÃû£º" << get<2>(hist) << endl;
+			cout << "è¯·æ±‚é€å‡ºå®—æ—è¿žå¸¦å­å­™ï¼æ¥è‡ª" << get<1>(hist) <<"ã€" << get<3>(hist) << "ï¼Œå§“åï¼š" << get<2>(hist) << endl;
 			break;
 		case 2:
 			Name.clear();
 			ss << get<3>(hist);
 			ss >> Name;
-			cout << "Ï²½áÁ¬Àí£¡×£¸£" << get<1>(hist)<< "¡¢" << Name << "·ò¸¾£¡" << endl;
+			cout << "å–œç»“è¿žç†ï¼ç¥ç¦" << get<1>(hist)<< "ã€" << Name << "å¤«å¦‡ï¼" << endl;
 			break;
 		case 3:
-			cout << "´ËÊÂÒàÄÑÈ«¡£" << get<1>(hist)<< "¡¢" << get<3>(hist) << "·ò¸¾¾ö¶¨Àë»é¡£" << endl;
+			cout << "æ­¤äº‹äº¦éš¾å…¨ã€‚" << get<1>(hist)<< "ã€" << get<3>(hist) << "å¤«å¦‡å†³å®šç¦»å©šã€‚" << endl;
 			break;
 		case 4:
-			cout << "Ì¾Ï¢¡£" << get<1>(hist) << "£¬ÎôÈËÒÑÊÅ£¬½Ú°§¡£" << endl; 
+			cout << "èŠ‚å“€ã€‚" << get<1>(hist) << "åŽ»ä¸–ã€‚" << endl; 
 			break;
 		}
 		
@@ -310,7 +309,7 @@ void FamilyTree::Repair()
 				{
 					if ((*iter)->getName() == get<2>(hist))
 					{
-						Mem->RemoveChild(get<2>(hist));
+						Mem->RemoveChild(get<2>(hist), get<3>(hist));
 						Delete(*iter);
 						break;
 					}
@@ -335,7 +334,7 @@ void FamilyTree::Repair()
 			Dfs_Tree(get<1>(hist), Anc, Mem);
 			if (Mem != nullptr)
 			{
-				Mem->Divorce();
+				Mem->Divorce(get<2>(hist));
 			}
 			break;
 		case 4:
@@ -343,7 +342,7 @@ void FamilyTree::Repair()
 			Dfs_Tree(get<1>(hist), Anc, Mem);
 			if (Mem != nullptr)
 			{
-				Mem->Die();
+				Mem->Die(get<2>(hist));
 			}
 			break;
 		}
