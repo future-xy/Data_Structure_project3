@@ -50,7 +50,7 @@ Status sign_in()
 			break;
 		}
 	}
-	return tourist;
+	return authority;
 }
 unsigned long long String_HashValue(string s) {
 	unsigned long long PrimeBase = 233, PrimeModular = 19260817,
@@ -156,11 +156,13 @@ string getTxt(ifstream& ifs)
 {
 	if (ifs.bad())
 		return "";
-	char ch;
 	string ans;
-	while (ifs >> ch)
+	string temp;
+	while (ifs >> temp)
 	{
-		ans.push_back(ch);
+		ans += temp + "\n";
 	}
+	ans.pop_back();
+
 	return ans;
 }

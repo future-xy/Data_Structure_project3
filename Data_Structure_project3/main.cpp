@@ -50,9 +50,12 @@ void Initial()
 	{
 		if (sign_in() == tourist)
 		{
-			cout << "查无此人\n";
+			cout << "\n账号或密码错误\n";
+
 		}
 	}
+	system("pause");
+	system("cls");
 }
 void model_1();
 void model_2();
@@ -60,7 +63,6 @@ void model_3();
 int main() {
 
 	preprocessing();
-	Initial();
 	int ok = 1;
 	while (ok)
 	{
@@ -82,14 +84,16 @@ int main() {
 		cout << "退出程序or重新登陆?\n";
 		cout << "0.退出\n"
 			<< "1.登录\n";
-
 		cin >> ok;
+		system("pause");
+		system("cls");
 	}
 	if (save_all())
 		cout << "Bye!\n";
 	else
 		cerr << "Error!\n";
 	return 0;
+	
 }
 void model_1()
 {
@@ -98,6 +102,7 @@ void model_1()
 
 	while (ok)
 	{
+		cout << ui;
 		cout << username << "族长，您好！\n";
 		cout << "请选择操作:\n"
 			<< "0.退出\n"
@@ -110,7 +115,8 @@ void model_1()
 			<< "7.查看家族基本信息\n"
 			<< "8.修编族谱\n"
 			<< "9.禅让族长\n";
-		string name, birthday, marriage_date;
+		string name, birthday, marriage_date, gender_str;
+		bool gender;
 		Member* people = nullptr;
 		int order;
 		cin >> order;
@@ -119,9 +125,9 @@ void model_1()
 		case 1:
 			cout << "请输入配偶姓名:";
 			cin >> name;
-			cout << "";
+			cout << "请输入配偶生日:";
 			cin >> birthday;
-			cout << "";
+			cout << "请输入结婚日期:";
 			cin >> marriage_date;
 			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
@@ -131,8 +137,18 @@ void model_1()
 			shelf[hometown]->Divorce(username);
 			break;
 		case 3:
-
-			break;
+			cout << "请给孩子起名:";
+			cin >> name;
+			cout << "请输入孩子生日:";
+			cin >> birthday;
+			cout << "请输入孩子性别:";
+			cin >> gender_str;
+			if (gender_str == "男")
+				gender = true;
+			else
+				gender = false;
+			//shelf[hometown]->GiveBirth();
+				break;
 		case 4:
 			cout << "请输入孩子姓名:\n";
 			cin >> name;
@@ -144,6 +160,7 @@ void model_1()
 			shelf[hometown]->Die(username);
 			break;
 		case 6:
+			cout << "请输入要查找的姓名:";
 			cin >> name;
 			for (auto item : shelf)
 			{
@@ -159,6 +176,7 @@ void model_1()
 			}
 			break;
 		case 7:
+			cout << "请输入要查看的家谱:";
 			cin >> name;
 			if (shelf.count(name))
 				cout << shelf[name]->Tree_to_String();
@@ -187,6 +205,7 @@ void model_2()
 	const FamilyTree* cur_tree = shelf[hometown];
 	while (ok)
 	{
+		cout << ui;
 		cout << username << "，您好！\n";
 		cout << "请选择操作:\n"
 			<< "0.退出\n"
@@ -197,7 +216,8 @@ void model_2()
 			<< "5.死亡\n"
 			<< "6.查找姓名\n"
 			<< "7.查看家族基本信息\n";
-		string name, birthday, marriage_date;
+		string name, birthday, marriage_date, gender_str;
+		bool gender;
 		Member* people = nullptr;
 		int order;
 		cin >> order;
@@ -209,9 +229,9 @@ void model_2()
 		case 1:
 			cout << "请输入配偶姓名:";
 			cin >> name;
-			cout << "";
+			cout << "请输入配偶生日:";
 			cin >> birthday;
-			cout << "";
+			cout << "请输入结婚日期:";
 			cin >> marriage_date;
 			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
@@ -221,7 +241,18 @@ void model_2()
 			shelf[hometown]->Divorce(username);
 			break;
 		case 3:
-
+			cout << "请给孩子起名:";
+			cin >> name;
+			cout << "请输入孩子生日:";
+			cin >> birthday;
+			cout << "请输入孩子性别:";
+			cin >> gender_str;
+			if (gender_str == "男")
+				gender = true;
+			else
+				gender = false;
+			//shelf[hometown]->GiveBirth();
+				break;
 			break;
 		case 4:
 			cout << "请输入孩子姓名:\n";
@@ -234,6 +265,7 @@ void model_2()
 			shelf[hometown]->Die(username);
 			break;
 		case 6:
+			cout << "请输入要查找的姓名:\n";
 			cin >> name;
 			for (auto item : shelf)
 			{
@@ -249,6 +281,7 @@ void model_2()
 			}
 			break;
 		case 7:
+			cout << "请输入要查看的家谱:\n";
 			cin >> name;
 			if (shelf.count(name))
 				cout << shelf[name]->Tree_to_String();
@@ -268,6 +301,8 @@ void model_3()
 	int ok = 1;
 	while (ok)
 	{
+		cout << ui;
+		cout << "游客模式\n";
 		cout << "当前保存的家谱有:\n";
 		for (auto item : shelf)
 		{
@@ -290,13 +325,14 @@ void model_3()
 			ok = 0;
 			break;
 		case 1:
+			cout << "请输入要查找的姓名:\n";
 			cin >> name;
 			for (auto item : shelf)
 			{
 				people = item.second->Search(name);
 				if (people != nullptr)
 				{
-
+					cout << people->Getmessage();
 				}
 				else
 				{
@@ -305,6 +341,7 @@ void model_3()
 			}
 			break;
 		case 2:
+			cout << "请输入要查看的家谱:\n";
 			cin >> name;
 			if (shelf.count(name))
 				cout << shelf[name]->Tree_to_String();
