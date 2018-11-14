@@ -1,49 +1,64 @@
 #include"Member.h"
 #include<sstream>
+#include<iostream>
 
 using std::stringstream;
+using std::cout;
+using std::endl; 
 
 Member::Member(string inform){
 	stringstream ss;
 	string str;
 	ss << inform;
 	ss >> str;
-	if(str=="Éú")
+	ss >> str;
+	if(str=="ç”Ÿ")
 		alive = true;
 	else
 		alive = false;
 	ss >> str;
+	ss >> str;
 	lastname = str;
+	ss >> str;
 	ss >> str;
 	firstname = str;
 	ss >> str;
+	ss >> str;
 	birth_date = str;
 	unsigned long long pre;
+	ss >> str;
 	ss >> pre;
 	password = pre;
 	ss >> str;
-	if(str=="ÄĞ") gender = true;
+	ss >> str;
+	if(str=="ç”·") gender = true;
 	else gender = false;
 	unsigned int temp;
 	ss >> temp;
+	ss >> str;
 	for(unsigned int i=0;i<temp;++i){
 		ss >> str;
 		child_name.push_back(str);
 	}
 	ss >> str;
-	if(str=="ÒÑ»é"){
+	ss >> str;
+	if(str=="å·²å©š"){
 		state = true;
 		ss >> str;
-		if(str=="Éú") spouse.setAlive(true);
+		ss >> str;
+		if(str=="ç”Ÿ") spouse.setAlive(true);
 		else spouse.setAlive(false);
+		ss >> str;
 		ss >> str;
 		spouse.setName(str);
 		ss >> str;
+		ss >> str;
 		spouse.setBirth(str);
+		ss >> str;
 		ss >> str;
 		spouse.setWedding(str);
 		ss >> str;
-		if(str=="ÄĞ") spouse.setGender(true);
+		if(str=="ç”·") spouse.setGender(true);
 		else spouse.setGender(false);
 	} else state = false;
 }
@@ -128,35 +143,39 @@ unsigned long long Member::getPassword() const{
 }
 string Member::Getmessage() const{
 	string str;
-	if(alive)	str+="Éú\n";
-	else	str+="ËÀ\n";
-	str += (lastname+' '+firstname+'\n');
-	str+=(birth_date+'\n');
+	str += "å­˜æ´»çŠ¶æ€: ";
+	if(alive)	str+="ç”Ÿ\n";
+	else	str+="æ­»\n";
+	str += ("å§“: "+lastname+' '+"å: "+firstname+'\n');
+	str+=("ç”Ÿæ—¥: "+birth_date+'\n');
 	stringstream ss,_ss;
 	string st;
 	ss << password;
 	ss >> st;
+	str += "å¯†ç : "; 
 	str += st;
 	str += '\n';
 	
-	if(gender)    str+="ÄĞ\nº¢×ÓÊı:";
-	else str+="Å®\nº¢×ÓÊı:";
+	if(gender)    str+="æ€§åˆ«: ç”·\nå­©å­æ•°:";
+	else str+="æ€§åˆ«: å¥³\nå­©å­æ•°:";
 	int num = children.size();
 	_ss << num;
 	_ss >> st;
 	str += st;
 	str += '\n';
+	str += "å­©å­åå­—:";
 	for(unsigned int i=0;i<child_name.size();++i)
-	str += (child_name[i]+'\n');
+	str += (' '+child_name[i]);
+	str += '\n';
 	
 	if(state){
-		str+="ÒÑ»é\nÅäÅ¼:\n";
-		if(spouse.getAlive())	str+="Éú\n";
-		else	str+="ËÀ\n";
-		str += (spouse.getName()+'\n');
-		str += (spouse.getBirth()+'\n'+spouse.getWedding()+'\n');
+		str+="çŠ¶æ€: å·²å©š\né…å¶:\n";
+		if(spouse.getAlive())	str+="å­˜æ´»çŠ¶æ€: ç”Ÿ\n";
+		else	str+="å­˜æ´»çŠ¶æ€: æ­»\n";
+		str += ("é…å¶å§“å: "+spouse.getName()+'\n');
+		str += ("é…å¶ç”Ÿæ—¥: "+spouse.getBirth()+' '+"ç»“å©šæ—¥æœŸ: "+spouse.getWedding()+'\n');
 		str += spouse.getGender();
-	} else str += "µ¥Éí\n";
+	} else str += "çŠ¶æ€: å•èº«\n";
 	return str;
 }
 bool Spouse::getAlive() const{
@@ -218,44 +237,39 @@ void Member::GiveBirth(int id,string last,string first,bool _gender,string birth
 	Member* son = new Member(true,_id,last,first,_gender,birth,false);
 	children.push_back(son);
 	child_name.push_back(last+first);
-	string str;
-	str+=getTime();
+	string str=birth;
 	str+=',';
 	str+=(lastname+firstname);
-	if()		str+="ÉúÁË¸ö¶ù×Ó,¶ù×ÓĞÕÃû:";
-	else str+="ÉúÁË¸öÅ®¶ù,Å®¶ùĞÕÃû:";
-	str+=name;
+	if(_gender)		str+="ç”Ÿäº†ä¸ªå„¿å­,å„¿å­å§“å:";
+	else str+="ç”Ÿäº†ä¸ªå¥³å„¿,å¥³å„¿å§“å:";
+	str+=(last+first);
 	info.push_back(str);
 }
-void Member::RemoveChild(string name){
-	string str;
-	str+=getTime();
-	str+=',';
-	str+="½«";
+void Member::RemoveChild(string name,string date){
+	string str = date;
+	str+=",å°†";
 	str+=name;
-	str+="Öğ³ö¼ÒÃÅ";
+	str+="é€å‡ºå®¶é—¨";
 	info.push_back(str);
 }
-bool Member::Divorce(){
+bool Member::Divorce(string date){
 	if(!state||(state&&!spouse.alive)) return false;
 	else {
-		string str;
-		str+=getTime();
+		string str = date;
 		str+=',';
 		str+=getName();
-		str+="Àë»éÁË\n";
+		str+="ç¦»å©šäº†\n";
 		state = false; 
 		info.push_back(str);
 		return true;
 	}
 }
-bool Member::Die(){
+bool Member::Die(string date){
 	if(alive){
-		string str;
-		str+=getTime();
+		string str = date;
 		str+=',';
 		str+=getName();
-		str+="È¥ÊÀÁË\n";
+		str+="å»ä¸–äº†\n";
 		alive = false;
 		info.push_back(str);
 		return true;
@@ -269,13 +283,12 @@ bool Member::GetMarried(string name,string birth,string wedding){
 		spouse.gender = !gender;
 		spouse.birth_date = birth;
 		spouse.weddingdate = wedding;
-		string str;
-		str+=getTime();
-		str+=',';
-		str+=getName();
-		str+="½á»éÁË,";
-		str += "½á»é¶ÔÏó:";
-		str+=name;
+		string str = wedding;
+		str += ',';
+		str += getName();
+		str += "ç»“å©šäº†,";
+		str += "ç»“å©šå¯¹è±¡:";
+		str += (name+'\n');
 		state = true;
 		info.push_back(str);
 		return true;
