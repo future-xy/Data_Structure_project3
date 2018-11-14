@@ -1,6 +1,7 @@
 #include"Member.h"
 #include<sstream>
 #include<iostream>
+#include<string>
 
 using std::stringstream;
 using std::cout;
@@ -117,9 +118,9 @@ void Member::setInfo(string _info){
 		_info.erase(0,pos+1);
 	}
 }
-ofstream& operator<<(ofstream& out, Member& other) {
-	string str = other.getInfo();
-	out << str;
+ofstream& operator<<(ofstream& out, const Member& other) {
+
+	out << other.getInfo().c_str();
 	return out;
 }
 ifstream& operator>>(ifstream& in,Member& other){

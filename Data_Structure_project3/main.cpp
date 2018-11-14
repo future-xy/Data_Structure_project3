@@ -58,6 +58,7 @@ void Initial()
 	system("pause");
 	system("cls");
 }
+void changePw();
 void model_1();
 void model_2();
 void model_3();
@@ -153,7 +154,7 @@ void model_1()
 				gender = true;
 			else
 				gender = false;
-			shelf[hometown]->_GiveBirth(username, true, clansman, "", name, gender, birthday, true);
+				shelf[hometown]->_GiveBirth(username, true, clansman, "", name, gender, birthday, true);
 				break;
 		case 4:
 			cout << "请输入孩子姓名:\n";
@@ -202,6 +203,9 @@ void model_1()
 			cout << "请输入下任族长姓名:";
 			cin >> name;
 			shelf[hometown]->SetPatriarch(name);
+			break;
+		case 10:
+			changePw();
 			break;
 		default:
 			break;
@@ -304,6 +308,9 @@ void model_2()
 			else
 				cout << "此家谱不存在\n";
 			break;
+		case 8:
+			changePw();
+			break;
 		default:
 			break;
 		}
@@ -383,4 +390,60 @@ void model_3()
 		system("cls");
 	}
 
+}
+void changePw()
+{
+	cout << "请输入原密码：";
+	int i = 0;
+	char ch;
+	char pw[50];
+	while ((ch = _getch()) != '\r')
+	{
+		if (ch == '\b'&&i > 0)
+		{
+			cout << "\b \b";
+			--i;
+		}
+		else if (ch != '\b'&&ch != '\0')
+		{
+			pw[i++] = ch;
+			cout << "*";
+		}
+	}
+	pw[i] = '\0';
+	unsigned long long password = String_HashValue(pw);
+	
+	for (auto item : shelf)
+	{
+		Status temp = item.second->Log_in(username, password);
+		if (temp != wrong_pw)
+		{
+			cout << "请输入新密码：";
+			int i = 0;
+			char ch;
+			char pw[50];
+			while ((ch = _getch()) != '\r')
+			{
+				if (ch == '\b'&&i > 0)
+				{
+					cout << "\b \b";
+					--i;
+				}
+				else if (ch != '\b'&&ch != '\0')
+				{
+					pw[i++] = ch;
+					cout << "*";
+				}
+			}
+			pw[i] = '\0';
+			unsigned long long password = String_HashValue(pw);
+			shelf[hometown]->setPassword(username, password);
+			break;
+		}
+		else
+		{
+			cout << "密码错误\n";
+		}
+
+	}
 }

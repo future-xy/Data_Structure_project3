@@ -32,6 +32,7 @@ class FamilyTree{
 		void _Die(string MyName,  string date);
 				
 		Status Log_in(string MyName, unsigned long long pw);
+		bool setPassword(string Myname, unsigned long long pw);
 
 		Member* Search(string MyName);
 	
@@ -40,8 +41,10 @@ class FamilyTree{
 		string Tree_to_String();
 		void Print();
 
-		friend ofstream& operator<<(ofstream&, vector <Line>&);
-		friend ifstream& operator>>(ifstream&, vector <Line>&);
+	//	friend ofstream& operator<<(ofstream&, vector <Line>&);
+	//	friend ifstream& operator>>(ifstream&, vector <Line>&);
+		friend ofstream& operator<<(ofstream&, FamilyTree&);
+		friend ifstream& operator>>(ifstream&, FamilyTree&); 
 		
 		friend void preprocessing();
 		friend bool save_all();

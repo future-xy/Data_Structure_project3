@@ -46,6 +46,9 @@ Status sign_in()
 			break;
 		case tourist:
 			break;
+		case wrong_pw:
+			authority = tourist;
+			cout << "账号或密码错误\n";
 		default:
 			break;
 		}
@@ -73,13 +76,18 @@ void preprocessing()
 	{
 		if (information.empty() || information == "\n")
 			continue;
-		ifstream mytxtin(path + information + "\\" + information + ".txt");
+		ifstream mytxtin(path + information + "\\" + information + "序" + ".txt");
 		string info;
 		if(mytxtin.is_open())
 			info = getTxt(mytxtin);
 		FamilyTree* tree_ptr = new FamilyTree(info);
 		mytxtin.close();
+		mytxtin.open(path + information + "\\" + information + ".csv");
+		mytxtin >> (*tree_ptr);
+		mytxtin.close();
 		string del_path = path + information + "\\" + information + ".txt";
+		DeleteFile(del_path.c_str());
+		del_path = path + information + "\\" + information + ".csv";
 		DeleteFile(del_path.c_str());
 		tree_ptr->Anc = dfs_get(path + information + "\\" + tree_ptr->GetAnc(), tree_ptr->GetAnc());
 		shelf[information] = tree_ptr;
@@ -103,8 +111,12 @@ bool save_all()
 		Member* forefather = item.second->Anc;
 		string path = ".\\" + item.first;
 		CreateDirectory(path.c_str(), NULL);
-		ofstream mytxtout(path + "\\" + item.first + ".txt");
+		ofstream mytxtout(path + "\\" + item.first + "家传" + ".txt");
 		mytxtout << item.second->Tree_to_String();
+		mytxtout.close();
+		mytxtout.open(path + "\\" + item.first + "生平年表" + ".csv");
+		mytxtout << *item.second;
+
 		mytxtout.close();
 		dfs_save(path, forefather);
 	}
@@ -119,7 +131,7 @@ void dfs_save(string path, const Member* root)
 	myfileout << info;
 	myfileout.close();
 	myfileout.open(cur_path + "\\" + root->getName() + ".csv");
-	myfileout << root;
+	myfileout << (*root);
 	myfileout.close();
 	const vector<Member*> child =root->children;
 	for (auto item : child)

@@ -70,6 +70,7 @@ class Member{
 			str+=',';
 			str+=getName();
 			str+="出生了\n";
+			info.push_back(str);
 		}
 		~Member() = default;
 		
@@ -100,7 +101,7 @@ class Member{
 		bool GetMarried(string,string,string);
 		
 		vector<string> getChildname(); //return names of children
-		friend ofstream& operator<<(ofstream&,Member&);
+		friend ofstream& operator<<(ofstream&,const Member&);
 		friend ifstream& operator>>(ifstream&,Member&);
 		friend void dfs_save(string path, const Member* root);
 		friend Member* dfs_get(string path, string name);
