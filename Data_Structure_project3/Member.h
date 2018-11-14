@@ -65,9 +65,14 @@ class Member{
 		Member(bool a,Status b,string c,string d,bool e,string f,bool i):
 		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),state(i){
 			password = String_HashValue(birth_date);
+			string str = getTime();
+			str+=',';
+			str+=getName();
+			str+="出生了\n";
 		}
 		~Member() = default;
 		
+		string getTime();
 		bool getAlive() const;
 		void setAlive(bool);
 		string getName() const;//the whole name
@@ -87,10 +92,18 @@ class Member{
 		unsigned long long getPassword() const;
 		string Getmessage() const;//all message
 		void changeName(string);//change lastname
+	
+		void GiveBirth(int,string,string,bool,string);
+		void RemoveChild(string);
+		bool Divorce();
+		bool Die();
+		bool GetMarried(string,string,string);
+		
 		vector<string> getChildname(); //return names of children
 		friend ofstream& operator<<(ofstream&,Member&);
 		friend ifstream& operator>>(ifstream&,Member&);
 		friend void dfs_save(string path, const Member* root);
 		friend Member* dfs_get(string path, string name);
+		friend void print(Member*,int);
 };
 #endif // !MEMBER_H

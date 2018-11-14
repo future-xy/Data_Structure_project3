@@ -9,8 +9,8 @@ using std::tuple;
 using std::string;
 using std::vector;
 
-typedef tuple<int, Member*, Member*, Spouse> Line;
-
+//typedef tuple<int, Member*, Member*, Spouse> Line;
+typedef tuple<int, string, string, string> Line;
 class FamilyTree{
 	public:
 		FamilyTree(Member* );
@@ -23,13 +23,13 @@ class FamilyTree{
 
 		void SetPatriarch(string);
 		
-		void GiveBirth(string MyName, Member MyKid);
-		void RemoveChild(string MyName, string MyKid);
+		void _GiveBirth(string MyName, bool , Status , string , string , bool , string , bool);
+		void _RemoveChild(string MyName, string MyKid);
 		
-		void GetMarried(string MyName, string MyWife, string Birth_date, string Marriage_date);
-		void Divorce(string MaName);
+		void _GetMarried(string MyName, string MyWife, string Birth_date, string Marriage_date);
+		void _Divorce(string MaName);
 		
-		void Die(string MyName);
+		void _Die(string MyName);
 				
 		Status Log_in(string MyName, unsigned long long pw);
 
@@ -38,7 +38,10 @@ class FamilyTree{
         	void PreRepair(); 
 		void Repair();
 		string Tree_to_String();
+		void Print();
 
+		friend ofstream& operator<<(ofstream&, vector <Line>&);
+		friend ifstream& operator>>(ifstream&, vector <Line>&);
 		
 		friend void preprocessing();
 		friend bool save_all();
@@ -55,7 +58,7 @@ class FamilyTree{
 		string TheTree;
 	
 		vector <Line> History; 
-
+		
 		Member* Patriarch; //zuzhang
 	
 };
