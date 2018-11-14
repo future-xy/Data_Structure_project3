@@ -12,7 +12,7 @@ Member::Member(string inform){
 	ss << inform;
 	ss >> str;
 	ss >> str;
-	if(str=="ç”Ÿ")
+	if(str=="Éú")
 		alive = true;
 	else
 		alive = false;
@@ -31,7 +31,7 @@ Member::Member(string inform){
 	password = pre;
 	ss >> str;
 	ss >> str;
-	if(str=="ç”·") gender = true;
+	if(str=="ÄĞ") gender = true;
 	else gender = false;
 	unsigned int temp;
 	ss >> temp;
@@ -42,11 +42,11 @@ Member::Member(string inform){
 	}
 	ss >> str;
 	ss >> str;
-	if(str=="å·²å©š"){
+	if(str=="ÒÑ»é"){
 		state = true;
 		ss >> str;
 		ss >> str;
-		if(str=="ç”Ÿ") spouse.setAlive(true);
+		if(str=="Éú") spouse.setAlive(true);
 		else spouse.setAlive(false);
 		ss >> str;
 		ss >> str;
@@ -58,7 +58,7 @@ Member::Member(string inform){
 		ss >> str;
 		spouse.setWedding(str);
 		ss >> str;
-		if(str=="ç”·") spouse.setGender(true);
+		if(str=="ÄĞ") spouse.setGender(true);
 		else spouse.setGender(false);
 	} else state = false;
 }
@@ -143,39 +143,39 @@ unsigned long long Member::getPassword() const{
 }
 string Member::Getmessage() const{
 	string str;
-	str += "å­˜æ´»çŠ¶æ€: ";
-	if(alive)	str+="ç”Ÿ\n";
-	else	str+="æ­»\n";
-	str += ("å§“: "+lastname+' '+"å: "+firstname+'\n');
-	str+=("ç”Ÿæ—¥: "+birth_date+'\n');
+	str += "´æ»î×´Ì¬: ";
+	if(alive)	str+="Éú\n";
+	else	str+="ËÀ\n";
+	str += ("ĞÕ: "+lastname+' '+"Ãû: "+firstname+'\n');
+	str+=("ÉúÈÕ: "+birth_date+'\n');
 	stringstream ss,_ss;
 	string st;
 	ss << password;
 	ss >> st;
-	str += "å¯†ç : "; 
+	str += "ÃÜÂë: "; 
 	str += st;
 	str += '\n';
 	
-	if(gender)    str+="æ€§åˆ«: ç”·\nå­©å­æ•°:";
-	else str+="æ€§åˆ«: å¥³\nå­©å­æ•°:";
+	if(gender)    str+="ĞÔ±ğ: ÄĞ\nº¢×ÓÊı:";
+	else str+="ĞÔ±ğ: Å®\nº¢×ÓÊı:";
 	int num = children.size();
 	_ss << num;
 	_ss >> st;
 	str += st;
 	str += '\n';
-	str += "å­©å­åå­—:";
+	str += "º¢×ÓÃû×Ö:";
 	for(unsigned int i=0;i<child_name.size();++i)
 	str += (' '+child_name[i]);
 	str += '\n';
 	
 	if(state){
-		str+="çŠ¶æ€: å·²å©š\né…å¶:\n";
-		if(spouse.getAlive())	str+="å­˜æ´»çŠ¶æ€: ç”Ÿ\n";
-		else	str+="å­˜æ´»çŠ¶æ€: æ­»\n";
-		str += ("é…å¶å§“å: "+spouse.getName()+'\n');
-		str += ("é…å¶ç”Ÿæ—¥: "+spouse.getBirth()+' '+"ç»“å©šæ—¥æœŸ: "+spouse.getWedding()+'\n');
+		str+="×´Ì¬: ÒÑ»é\nÅäÅ¼:\n";
+		if(spouse.getAlive())	str+="´æ»î×´Ì¬: Éú\n";
+		else	str+="´æ»î×´Ì¬: ËÀ\n";
+		str += ("ÅäÅ¼ĞÕÃû: "+spouse.getName()+'\n');
+		str += ("ÅäÅ¼ÉúÈÕ: "+spouse.getBirth()+' '+"½á»éÈÕÆÚ: "+spouse.getWedding()+'\n');
 		str += spouse.getGender();
-	} else str += "çŠ¶æ€: å•èº«\n";
+	} else str += "×´Ì¬: µ¥Éí\n";
 	return str;
 }
 bool Spouse::getAlive() const{
@@ -219,37 +219,24 @@ Spouse Member::getSpouse() const{
 	return spouse;
 }
 void Member::GiveBirth(int id,string last,string first,bool _gender,string birth){
-	Status _id;
-	switch(id){
-		case 0:
-			_id = patriarch;
-			break;
-		case 1:
-			_id = clansman;
-			break;
-		case 2:
-			_id = tourist;
-			break;
-		case 3:
-			_id = wrong_pw;
-			break;
-	}
+	
+	Status _id = clansman;
 	Member* son = new Member(true,_id,last,first,_gender,birth,false);
 	children.push_back(son);
 	child_name.push_back(last+first);
 	string str=birth;
 	str+=',';
 	str+=(lastname+firstname);
-	if(_gender)		str+="ç”Ÿäº†ä¸ªå„¿å­,å„¿å­å§“å:";
-	else str+="ç”Ÿäº†ä¸ªå¥³å„¿,å¥³å„¿å§“å:";
+	if(_gender)		str+="ÉúÁË¸ö¶ù×Ó,¶ù×ÓĞÕÃû:";
+	else str+="ÉúÁË¸öÅ®¶ù,Å®¶ùĞÕÃû:";
 	str+=(last+first);
 	info.push_back(str);
 }
 void Member::RemoveChild(string name,string date){
 	string str = date;
-	str+=",å°†";
+	str+=",½«";
 	str+=name;
-	str+="é€å‡ºå®¶é—¨";
+	str+="Öğ³ö¼ÒÃÅ";
 	info.push_back(str);
 }
 bool Member::Divorce(string date){
@@ -258,7 +245,7 @@ bool Member::Divorce(string date){
 		string str = date;
 		str+=',';
 		str+=getName();
-		str+="ç¦»å©šäº†\n";
+		str+="Àë»éÁË\n";
 		state = false; 
 		info.push_back(str);
 		return true;
@@ -269,7 +256,7 @@ bool Member::Die(string date){
 		string str = date;
 		str+=',';
 		str+=getName();
-		str+="å»ä¸–äº†\n";
+		str+="È¥ÊÀÁË\n";
 		alive = false;
 		info.push_back(str);
 		return true;
@@ -286,8 +273,8 @@ bool Member::GetMarried(string name,string birth,string wedding){
 		string str = wedding;
 		str += ',';
 		str += getName();
-		str += "ç»“å©šäº†,";
-		str += "ç»“å©šå¯¹è±¡:";
+		str += "½á»éÁË,";
+		str += "½á»é¶ÔÏó:";
 		str += (name+'\n');
 		state = true;
 		info.push_back(str);

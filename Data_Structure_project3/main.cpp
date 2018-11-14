@@ -50,10 +50,11 @@ void Initial()
 	{
 		if (sign_in() == tourist)
 		{
-			cout << "\n账号或密码错误\n";
+			cout << "\n账号或密码错误";
 
 		}
 	}
+	cout << "\n";
 	system("pause");
 	system("cls");
 }
@@ -115,13 +116,16 @@ void model_1()
 			<< "7.查看家族基本信息\n"
 			<< "8.修编族谱\n"
 			<< "9.禅让族长\n";
-		string name, birthday, marriage_date, gender_str;
+		string name, birthday, marriage_date, gender_str, date;
 		bool gender;
 		Member* people = nullptr;
 		int order;
 		cin >> order;
 		switch (order)
 		{
+		case 0:
+			ok = 0;
+			break;
 		case 1:
 			cout << "请输入配偶姓名:";
 			cin >> name;
@@ -129,12 +133,14 @@ void model_1()
 			cin >> birthday;
 			cout << "请输入结婚日期:";
 			cin >> marriage_date;
-			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
+			shelf[hometown]->_GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
 			break;
 		case 2:
+			cout << "请输入时间:\n";
+			cin >> date;
 			cout << "好聚好散~\n";
-			shelf[hometown]->Divorce(username);
+			shelf[hometown]->_Divorce(username, date);
 			break;
 		case 3:
 			cout << "请给孩子起名:";
@@ -147,17 +153,21 @@ void model_1()
 				gender = true;
 			else
 				gender = false;
-			//shelf[hometown]->GiveBirth();
+			shelf[hometown]->_GiveBirth(username, true, clansman, "", name, gender, birthday, true);
 				break;
 		case 4:
 			cout << "请输入孩子姓名:\n";
 			cin >> name;
-			shelf[hometown]->RemoveChild(username, name);
+			cout << "请输入日期:\n";
+			cin >> date;
+			shelf[hometown]->_RemoveChild(username, name, date);
 
 			break;
 		case 5:
+			cout << "请输入日期:\n";
+			cin >> date;
 			cout << "节哀顺变\n";
-			shelf[hometown]->Die(username);
+			shelf[hometown]->_Die(username, date);
 			break;
 		case 6:
 			cout << "请输入要查找的姓名:";
@@ -185,7 +195,8 @@ void model_1()
 			break;
 		case 8:
 			cout << "族谱的变动:\n";
-
+			shelf[hometown]->PreRepair();
+			shelf[hometown]->Repair();
 			break;
 		case 9:
 			cout << "请输入下任族长姓名:";
@@ -216,7 +227,7 @@ void model_2()
 			<< "5.死亡\n"
 			<< "6.查找姓名\n"
 			<< "7.查看家族基本信息\n";
-		string name, birthday, marriage_date, gender_str;
+		string name, birthday, marriage_date, gender_str, date;
 		bool gender;
 		Member* people = nullptr;
 		int order;
@@ -233,12 +244,14 @@ void model_2()
 			cin >> birthday;
 			cout << "请输入结婚日期:";
 			cin >> marriage_date;
-			shelf[hometown]->GetMarried(username, name, birthday, marriage_date);
+			shelf[hometown]->_GetMarried(username, name, birthday, marriage_date);
 			cout << "祝" << username << " " << name << "百年好合！\n";
 			break;
 		case 2:
+			cout << "请输入时间:\n";
+			cin >> date;
 			cout << "好聚好散~\n";
-			shelf[hometown]->Divorce(username);
+			shelf[hometown]->_Divorce(username, date);
 			break;
 		case 3:
 			cout << "请给孩子起名:";
@@ -251,18 +264,21 @@ void model_2()
 				gender = true;
 			else
 				gender = false;
-			//shelf[hometown]->GiveBirth();
-				break;
+			shelf[hometown]->_GiveBirth(username, true, clansman, "", name, gender, birthday, true);
 			break;
 		case 4:
 			cout << "请输入孩子姓名:\n";
 			cin >> name;
-			shelf[hometown]->RemoveChild(username, name);
+			cout << "请输入日期:\n";
+			cin >> date;
+			shelf[hometown]->_RemoveChild(username, name, date);
 
 			break;
 		case 5:
+			cout << "请输入日期:\n";
+			cin >> date;
 			cout << "节哀顺变\n";
-			shelf[hometown]->Die(username);
+			shelf[hometown]->_Die(username, date);
 			break;
 		case 6:
 			cout << "请输入要查找的姓名:\n";

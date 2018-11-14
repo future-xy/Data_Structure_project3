@@ -69,7 +69,7 @@ class Member{
 			string str = birth_date;
 			str+=',';
 			str+=getName();
-			str+="3?éúá?\n";
+			str+="出生了\n";
 		}
 		~Member() = default;
 		
