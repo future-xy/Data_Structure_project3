@@ -86,30 +86,32 @@ void FamilyTree::_GiveBirth(string MyName, bool alive, Status id, string lastn, 
 		//(Mem->children).push_back(p);
 	}*/
 	string ohmykid;
-	ohmykid += lastn + ' ' + firstn + ' ';
-	ohmykid += alive + ' ';
-	switch (id) {
-	case 0:
-		ohmykid += "0 ";
-		break;
-	case 1:
-		ohmykid += "1 ";
-		break;
-	case 2:
-		ohmykid += "2 ";
-		break;
-	case 3:
-		ohmykid += "3 ";
-		break;
-	}
-	ohmykid += sex + ' ';
-	ohmykid += birthday + ' ';
-	ohmykid += sta;
 	string s;
 	Member* Mem = nullptr;
 	Dfs_Tree(MyName, Anc, Mem);
 	if (Mem != nullptr)
 	{
+		ohmykid += Mem->lastname;
+		ohmykid += lastn + ' ' + firstn + ' ';
+		ohmykid += alive + ' ';
+		switch (id) {
+		case 0:
+			ohmykid += "0 ";
+			break;
+		case 1:
+			ohmykid += "1 ";
+			break;
+		case 2:
+			ohmykid += "2 ";
+			break;
+		case 3:
+			ohmykid += "3 ";
+			break;
+		}
+		ohmykid += sex + ' ';
+		ohmykid += birthday + ' ';
+		ohmykid += sta;
+
 		if (Mem->state)
 		s = Mem->spouse.getName();
 	}
@@ -239,32 +241,30 @@ void FamilyTree::PreRepair()
 	for (int i = 0; i < History.size(); ++i)
 	{
 		Line hist = History[i];
-		cout << "ÊÂ¼þ " << i << "£º" << endl;
+		cout << "äº‹ä»¶ " << i << "ï¼š" << endl;
 		int oper = get<0>(hist);
 		stringstream ss;
-		string Name;
+		string lastn,firstn;
 		switch (oper) {
 		case 0:
-			Name.clear();
 			ss << get<2>(hist);
-			ss >> Name;
-			ss >> Name;
-			cout << "ÐÂÉú¶ù£¡À´×Ô" << get<1>(hist) << "¡¢" << get<3>(hist) << "£¬È¡Ãû£º" << Name <<endl;
+			ss >> lastn;
+			ss >> firstn;
+			cout << "æ–°ç”Ÿå„¿ï¼æ¥è‡ª" << get<1>(hist) << "ã€" << get<3>(hist) << "ï¼Œå–åï¼š" << lastn+firstn << endl;
 			break;
 		case 1:
-			cout << "ÇëÇóÖð³ö×Ú×åÁ¬´ø×ÓËï£¡À´×Ô" << get<1>(hist) <<"¡¢" << get<3>(hist) << "£¬ÐÕÃû£º" << get<2>(hist) << endl;
+			cout << "è¯·æ±‚é€å‡ºå®—æ—è¿žå¸¦å­å­™ï¼æ¥è‡ª" << get<1>(hist) <<"ã€" << get<3>(hist) << "ï¼Œå§“åï¼š" << get<2>(hist) << endl;
 			break;
 		case 2:
-			Name.clear();
 			ss << get<3>(hist);
-			ss >> Name;
-			cout << "Ï²½áÁ¬Àí£¡×£¸£" << get<1>(hist)<< "¡¢" << Name << "·ò¸¾£¡" << endl;
+			ss >> lastn;
+			cout << "å–œç»“è¿žç†ï¼ç¥ç¦" << get<1>(hist)<< "ã€" << lastn << "å¤«å¦‡ï¼" << endl;
 			break;
 		case 3:
-			cout << "´ËÊÂÒàÄÑÈ«¡£" << get<1>(hist)<< "¡¢" << get<3>(hist) << "·ò¸¾¾ö¶¨Àë»é¡£" << endl;
+			cout << "æ­¤äº‹äº¦éš¾å…¨ã€‚" << get<1>(hist)<< "ã€" << get<3>(hist) << "å¤«å¦‡å†³å®šç¦»å©šã€‚" << endl;
 			break;
 		case 4:
-			cout << "½Ú°§¡£" << get<1>(hist) << "È¥ÊÀ¡£" << endl; 
+			cout << "èŠ‚å“€ã€‚" << get<1>(hist) << "åŽ»ä¸–ã€‚" << endl; 
 			break;
 		}
 		
@@ -323,7 +323,7 @@ void FamilyTree::Repair()
 			Dfs_Tree(get<1>(hist), Anc, Mem);
 			if (Mem != nullptr)
 			{
-				ss << get<2>(hist);
+				ss << get<3>(hist);
 				ss >> Name;
 				ss >> birthday;
 				ss >> wedding;
@@ -485,4 +485,3 @@ void FamilyTree::Counting(Member* anc)
 		q.pop();
 	}
 }
-
