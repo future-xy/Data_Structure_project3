@@ -24,12 +24,12 @@ class FamilyTree{
 		void SetPatriarch(string);
 		
 		void _GiveBirth(string MyName, bool , Status , string , string , bool , string , bool);
-		void _RemoveChild(string MyName, string MyKid);
+		void _RemoveChild(string MyName, string MyKid, string date);
 		
 		void _GetMarried(string MyName, string MyWife, string Birth_date, string Marriage_date);
-		void _Divorce(string MaName);
+		void _Divorce(string MaName, string date);
 		
-		void _Die(string MyName);
+		void _Die(string MyName,  string date);
 				
 		Status Log_in(string MyName, unsigned long long pw);
 
