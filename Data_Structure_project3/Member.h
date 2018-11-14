@@ -66,14 +66,13 @@ class Member{
 		Member(bool a,Status b,string c,string d,bool e,string f,bool i):
 		alive(a),Id(b),lastname(c),firstname(d),gender(e),birth_date(f),state(i){
 			password = String_HashValue(birth_date);
-			string str = getTime();
+			string str = birth_date;
 			str+=',';
 			str+=getName();
-			str+="³öÉúÁË\n";
+			str+="3?Ã©ÃºÃ¡?\n";
 		}
 		~Member() = default;
 		
-		string getTime();
 		bool getAlive() const;
 		void setAlive(bool);
 		string getName() const;//the whole name
@@ -95,9 +94,9 @@ class Member{
 		void changeName(string);//change lastname
 	
 		void GiveBirth(int,string,string,bool,string);
-		void RemoveChild(string);
-		bool Divorce();
-		bool Die();
+		void RemoveChild(string,string);
+		bool Divorce(string);
+		bool Die(string);
 		bool GetMarried(string,string,string);
 		
 		vector<string> getChildname(); //return names of children
