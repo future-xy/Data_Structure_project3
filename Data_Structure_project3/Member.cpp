@@ -199,3 +199,95 @@ void Member::divorce(){
 Spouse Member::getSpouse() const{
 	return spouse;
 }
+void Member::GiveBirth(int id,string last,string first,bool _gender,string birth){
+	Status _id;
+	switch(id){
+		case 0:
+			_id = patriarch;
+			break;
+		case 1:
+			_id = clansman;
+			break;
+		case 2:
+			_id = tourist;
+			break;
+		case 3:
+			_id = wrong_pw;
+			break;
+	}
+	Member* son = new Member(true,_id,last,first,_gender,birth,false);
+	children.push_back(son);
+	child_name.push_back(last+first);
+	string str;
+	str+=getTime();
+	str+=',';
+	str+=(lastname+firstname);
+	if()		str+="生了个儿子,儿子姓名:";
+	else str+="生了个女儿,女儿姓名:";
+	str+=name;
+	info.push_back(str);
+}
+void Member::RemoveChild(string name){
+	string str;
+	str+=getTime();
+	str+=',';
+	str+="将";
+	str+=name;
+	str+="逐出家门";
+	info.push_back(str);
+}
+bool Member::Divorce(){
+	if(!state||(state&&!spouse.alive)) return false;
+	else {
+		string str;
+		str+=getTime();
+		str+=',';
+		str+=getName();
+		str+="离婚了";
+		state = false; 
+		info.push_back(str);
+		return true;
+	}
+}
+bool Member::Die(){
+	if(alive){
+		string str;
+		str+=getTime();
+		str+=',';
+		str+=getName();
+		str+="去世了";
+		alive = false;
+		info.push_back(str);
+		return true;
+	} 
+	else return false;
+}
+bool Member::GetMarried(string name,string birth,string wedding){
+	if(!state||(state&&!spouse.alive)){
+		spouse.name = name;
+		spouse.alive = true;
+		spouse.gender = !gender;
+		spouse.birth_date = birth;
+		spouse.weddingdate = wedding;
+		string str;
+		str+=getTime();
+		str+=',';
+		str+=getName();
+		str+="结婚了,";
+		str+="结婚对象:"
+		str+=name;
+		state = true;
+		info.push_back(str);
+		return true;
+	}
+	else
+	return false;
+}
+
+void print(Member* head,int n){//friend
+	for(int i=0;i<4*n;++i)
+	cout << ' ';
+	cout << head->getName() << endl;
+	for(unsigned int i=0;i<head->children.size();++i)
+	print(head->children[i],n+1);
+}
