@@ -36,14 +36,27 @@ Status sign_in()
 		Status temp = item.second->Log_in(username, password);
 		if (ok_flag)
 			break;
+		
 		switch (temp)
 		{
 		case patriarch:
+			if (item.second->Search(username)->getAlive() == false)
+			{
+				cout << "斯人已逝!\n";
+				authority = tourist;
+				return authority;
+			}
 			authority = patriarch;
 			hometown = item.first;
 			ok_flag = 1;
 			break;
 		case clansman:
+			if (item.second->Search(username)->getAlive() == false)
+			{
+				cout << "斯人已逝!\n";
+				authority = tourist;
+				return authority;
+			}
 			authority = clansman;
 			hometown = item.first;
 			ok_flag = 1;

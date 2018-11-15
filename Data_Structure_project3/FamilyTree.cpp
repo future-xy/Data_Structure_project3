@@ -70,6 +70,7 @@ void FamilyTree::SetPatriarch(string MyName)
 	if (Mem != nullptr)
 	{
 		Mem->Id = patriarch;
+		Patriarch = Mem;
 	}
 }
 
@@ -254,10 +255,10 @@ void FamilyTree::PreRepair()
 			ss << get<2>(hist);
 			ss >> lastn;
 			ss >> firstn;
-			cout << "新生儿！来自" << get<1>(hist) << "、" << get<3>(hist) << "，取名：" << lastn+firstn << endl;
+			cout << "允许入谱！来自" << get<1>(hist) << "、" << get<3>(hist) << "，取名：" << lastn+firstn << endl;
 			break;
 		case 1:
-			cout << "请求逐出宗族连带子孙！来自" << get<1>(hist) <<"、" << get<3>(hist) << "，姓名：" << get<2>(hist) << endl;
+			cout << "逐出宗族连带子孙！来自" << get<1>(hist) <<"、" << get<3>(hist) << "，姓名：" << get<2>(hist) << endl;
 			break;
 		case 2:
 			ss << get<3>(hist);
@@ -268,7 +269,7 @@ void FamilyTree::PreRepair()
 			cout << "此事亦难全。" << get<1>(hist)<< "、" << get<3>(hist) << "夫妇决定离婚。" << endl;
 			break;
 		case 4:
-			cout << "节哀。" << get<1>(hist) << "去世。" << endl; 
+			cout << "节哀。惊闻" << get<1>(hist) << "去世。" << endl; 
 			break;
 		}
 		
