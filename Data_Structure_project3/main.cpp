@@ -116,7 +116,8 @@ void model_1()
 			<< "6.查找姓名\n"
 			<< "7.查看家族基本信息\n"
 			<< "8.修编族谱\n"
-			<< "9.禅让族长\n";
+			<< "9.禅让族长\n"
+			<< "10.修改密码\n";
 		string name, birthday, marriage_date, gender_str, date;
 		bool gender;
 		Member* people = nullptr;
@@ -169,6 +170,7 @@ void model_1()
 			cin >> date;
 			cout << "节哀顺变\n";
 			shelf[hometown]->_Die(username, date);
+			return;
 			break;
 		case 6:
 			cout << "请输入要查找的姓名:";
@@ -203,6 +205,8 @@ void model_1()
 			cout << "请输入下任族长姓名:";
 			cin >> name;
 			shelf[hometown]->SetPatriarch(name);
+			authority = clansman;
+			return;
 			break;
 		case 10:
 			changePw();
@@ -230,7 +234,8 @@ void model_2()
 			<< "4.移除孩子\n"
 			<< "5.死亡\n"
 			<< "6.查找姓名\n"
-			<< "7.查看家族基本信息\n";
+			<< "7.查看家族基本信息\n"
+			<< "8.修改密码\n";
 		string name, birthday, marriage_date, gender_str, date;
 		bool gender;
 		Member* people = nullptr;

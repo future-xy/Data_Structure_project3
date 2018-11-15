@@ -29,26 +29,32 @@ Status sign_in()
 	}
 	pw[i] = '\0';
 	unsigned long long password = String_HashValue(pw);
+	int ok_flag = 0;
 	//We will judge the status by looking in the map;
 	for (auto item : shelf)
 	{
 		Status temp = item.second->Log_in(username, password);
-
+		if (ok_flag)
+			break;
 		switch (temp)
 		{
 		case patriarch:
 			authority = patriarch;
 			hometown = item.first;
+			ok_flag = 1;
 			break;
 		case clansman:
 			authority = clansman;
 			hometown = item.first;
+			ok_flag = 1;
 			break;
 		case tourist:
+			authority = tourist;
 			break;
 		case wrong_pw:
 			authority = tourist;
-			cout << "账号或密码错误\n";
+			ok_flag = 1;
+			break;
 		default:
 			break;
 		}
@@ -82,14 +88,14 @@ void preprocessing()
 			info = getTxt(mytxtin);
 		FamilyTree* tree_ptr = new FamilyTree(info);
 		mytxtin.close();
-		mytxtin.open(path + information + "\\" + information + ".csv");
+		mytxtin.open(path + information + "\\" + information + "大事记.csv");
 		mytxtin >> (*tree_ptr);
 		mytxtin.close();
-		string del_path = path + information + "\\" + information + ".txt";
+		string del_path = path + information + "\\" + information + "序.txt";
 		DeleteFile(del_path.c_str());
-		del_path = path + information + "\\" + information + ".csv";
+		del_path = path + information + "\\" + information + "大事记.csv";
 		DeleteFile(del_path.c_str());
-		tree_ptr->Anc = dfs_get(path + information + "\\" + tree_ptr->GetAnc(), tree_ptr->GetAnc());
+		tree_ptr->Anc = dfs_get(path + information + "\\" + tree_ptr->GetAnc(), tree_ptr->GetAnc(),tree_ptr);
 		shelf[information] = tree_ptr;
 	}
 	myfilein.close();
@@ -111,10 +117,10 @@ bool save_all()
 		Member* forefather = item.second->Anc;
 		string path = ".\\" + item.first;
 		CreateDirectory(path.c_str(), NULL);
-		ofstream mytxtout(path + "\\" + item.first + "家传" + ".txt");
+		ofstream mytxtout(path + "\\" + item.first + "序" + ".txt");
 		mytxtout << item.second->Tree_to_String();
 		mytxtout.close();
-		mytxtout.open(path + "\\" + item.first + "生平年表" + ".csv");
+		mytxtout.open(path + "\\" + item.first + "大事记" + ".csv");
 		mytxtout << *item.second;
 
 		mytxtout.close();
@@ -126,11 +132,11 @@ void dfs_save(string path, const Member* root)
 {
 	string cur_path = path + "\\" + root->getName();
 	CreateDirectory(cur_path.c_str(), NULL);
-	ofstream myfileout(cur_path + "\\" + root->getName() + ".txt");
+	ofstream myfileout(cur_path + "\\" + root->getName() + "家传.txt");
 	string info = root->Getmessage();
 	myfileout << info;
 	myfileout.close();
-	myfileout.open(cur_path + "\\" + root->getName() + ".csv");
+	myfileout.open(cur_path + "\\" + root->getName() + "生平年表.csv");
 	myfileout << (*root);
 	myfileout.close();
 	const vector<Member*> child =root->children;
@@ -139,29 +145,32 @@ void dfs_save(string path, const Member* root)
 		dfs_save(cur_path + "\\", item);
 	}
 }
-Member* dfs_get(string path, string name)
+Member* dfs_get(string path, string name,FamilyTree* f)
 {
-	ifstream myfilein(path + "\\" + name + ".txt");
+	ifstream myfilein(path + "\\" + name + "家传.txt");
 	string info;
 	if(myfilein.is_open())
 		info = getTxt(myfilein);
 	myfilein.close();
-	string del_path = path + "\\" + name + ".txt";
+	string del_path = path + "\\" + name + "家传.txt";
 	DeleteFile(del_path.c_str());
 	Member* root = new Member(info);
-	myfilein.open(path + "\\" + name + ".csv");
+	myfilein.open(path + "\\" + name + "生平年表.csv");
 	if (myfilein.is_open())
 		myfilein >> (*root);
 	myfilein.close();
-	del_path = path + "\\" + name + ".csv";
+	del_path = path + "\\" + name + "生平年表.csv";
 	DeleteFile(del_path.c_str());
 	vector<string> child = root->getChildname();
 	for (auto item : child)
 	{
-		Member* temp=dfs_get(path + "\\" + item, item);
+		Member* temp = dfs_get(path + "\\" + item, item, f);
 		root->children.push_back(temp);
 	}
 	DeleteFile(path.c_str());
+	if (root->Id == patriarch)
+		f->Patriarch = root;
+
 	return root;
 }
 string getTxt(ifstream& ifs)

@@ -31,9 +31,17 @@ Member::Member(string inform){
 	ss >> pre;
 	password = pre;
 	ss >> str;
+	int ao;
+	ss >> ao;
+	if (ao)
+		Id = clansman;
+	else
+		Id = patriarch;
+	ss >> str;
 	ss >> str;
 	if(str=="男") gender = true;
 	else gender = false;
+	ss >> str;
 	unsigned int temp;
 	ss >> temp;
 	ss >> str;
@@ -156,9 +164,12 @@ string Member::Getmessage() const{
 	str += "密码: "; 
 	str += st;
 	str += '\n';
-	
-	if(gender)    str+="性别: 男\n孩子数:";
-	else str+="性别: 女\n孩子数:";
+	if (!Id)
+		str += "id: 0\n";
+	else
+		str += "id: 1\n";
+	if(gender)    str+="性别: 男\n孩子数: ";
+	else str+="性别: 女\n孩子数: ";
 	int num = children.size();
 	_ss << num;
 	_ss >> st;

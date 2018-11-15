@@ -69,7 +69,7 @@ class Member{
 			string str = birth_date;
 			str+=',';
 			str+=getName();
-			str+="å‡ºç”Ÿäº†\n";
+			str+="³öÉúÁË\n";
 			info.push_back(str);
 		}
 		~Member() = default;
@@ -104,7 +104,7 @@ class Member{
 		friend ofstream& operator<<(ofstream&,const Member&);
 		friend ifstream& operator>>(ifstream&,Member&);
 		friend void dfs_save(string path, const Member* root);
-		friend Member* dfs_get(string path, string name);
+		friend Member* dfs_get(string path, string name, FamilyTree* f);
 		friend void print(Member*,int);
 };
 #endif // !MEMBER_H

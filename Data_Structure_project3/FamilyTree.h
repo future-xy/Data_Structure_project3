@@ -41,13 +41,12 @@ class FamilyTree{
 		string Tree_to_String();
 		void Print();
 
-	//	friend ofstream& operator<<(ofstream&, vector <Line>&);
-	//	friend ifstream& operator>>(ifstream&, vector <Line>&);
 		friend ofstream& operator<<(ofstream&, FamilyTree&);
 		friend ifstream& operator>>(ifstream&, FamilyTree&); 
 		
 		friend void preprocessing();
 		friend bool save_all();
+		friend Member* dfs_get(string path, string name, FamilyTree* f);
 	private:
 		Member* Anc; // root
 		string Anc_Name;

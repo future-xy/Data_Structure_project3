@@ -33,7 +33,7 @@ bool save_all();
 
 unsigned long long String_HashValue(string s);
 void dfs_save(string path, const Member* root);
-Member* dfs_get(string path, string name);
+Member* dfs_get(string path, string name, FamilyTree* f);
 string getTxt(ifstream& ifs);
 
 #endif // !IOCTR_H
