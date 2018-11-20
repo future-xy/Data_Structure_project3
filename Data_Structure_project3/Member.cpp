@@ -55,6 +55,7 @@ Member::Member(string inform){
 		state = true;
 		ss >> str;
 		ss >> str;
+		ss >> str;
 		if(str=="Éú") spouse.setAlive(true);
 		else spouse.setAlive(false);
 		ss >> str;
